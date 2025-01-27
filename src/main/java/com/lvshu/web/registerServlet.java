@@ -2,6 +2,7 @@ package com.lvshu.web;
 
 import com.lvshu.mapper.UserMapper;
 import com.lvshu.pojo.User;
+import com.lvshu.util.SqlSessionFactoryUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -36,10 +37,8 @@ public class registerServlet  extends HttpServlet {
 
         // 2.调用MyBatis完成查询
         // 这里直接去官网复制粘贴过来
-        // 2.1 获取SqlSessionFactory对象
-        String resource = "mybatis-config.xml";
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        // 2.1 获取SqlSessionFactory对象 优化以后用了工具类 这样只创建一个工厂
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
         // 2.2 获取SqlSession对象
         SqlSession sqlSession = sqlSessionFactory.openSession();
         // 2.3 获取Mapper

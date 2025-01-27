@@ -2,6 +2,7 @@ package com.lvshu.web;
 
 import com.lvshu.mapper.UserMapper;
 import com.lvshu.pojo.User;
+import com.lvshu.util.SqlSessionFactoryUtils;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -30,10 +31,8 @@ public class loginServlet  extends HttpServlet {
 
         // 2.调用MyBatis完成查询
         // 这里直接去官网复制粘贴过来
-        // 2.1 获取SqlSessionFactory对象
-        String resource = "mybatis-config.xml";
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        // 2.1 获取SqlSessionFactory对象 优化以后用了工具类 这样只创建一个工厂
+        SqlSessionFactory sqlSessionFactory = SqlSessionFactoryUtils.getSqlSessionFactory();
         // 2.2 获取SqlSession对象
         SqlSession sqlSession = sqlSessionFactory.openSession();
         // 2.3 获取Mapper
@@ -48,14 +47,6 @@ public class loginServlet  extends HttpServlet {
         resp.setContentType("text/html;charset=utf-8");
         PrintWriter writer = resp.getWriter();
         // 3.判断user是否为null
-//        if (user != null) {
-//            // 登陆成功
-//            writer.write("登陆成功");
-//        } else {
-//            // 登陆失败
-//            writer.write("登陆失败");
-//        }
-        // 判断user是否为null
         if (user != null) {
             // 登陆成功，跳转到主页或其他页面
             writer.write("<html><body>");
