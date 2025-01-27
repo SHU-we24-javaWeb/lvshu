@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace-->
+<mapper namespace="com.lvshu.mapper.UserMapper">
+
+    <!--复用的sql片段-->
+    <sql id="user_column">
+        user_id, username, password, gender, date_of_birth, native_place, mobile_phone, email, major, status, created_at
+    </sql>
+
+
+    <resultMap id="UserResultMap" type="User">
+        <!--
+        id：完成主键字段的映射
+        column：表的列名
+        property：实体类的属性名
+        result：完成一般字段的映射
+        column：表的列名
+        property：实体类的属性名
+        -->
+        <result column="user_id" property="userId"/>
+        <result column="date_of_birth" property="dateOfBirth"/>
+        <result column="native_place" property="nativePlace"/>
+        <result column="mobile_phone" property="mobilePhone"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+
+
+    <!--    主键返回和自增主键值-->
+    <insert id="insertStudent" useGeneratedKeys="true" keyProperty="studentId">
+        insert into student (name, sex, date_of_birth, native_place, mobile_phone, dept_id, status)
+        values (#{name}, #{sex}, #{dateOfBirth}, #{nativePlace}, #{mobilePhone}, #{deptId}, #{status});
+    </insert>
+
+    <!--
+       参数占位符：
+       #{} ：执行SQL时，会将 #{} 占位符替换为？，将来自动设置参数值。从上述例子可以看出使用#{} 底层使用的是PreparedStatement
+       ${} ：拼接SQL。底层使用的是 Statement，会存在SQL注入问题。如下图将 映射配置文件中的 #{} 替换成 ${} 来看效果
+    -->
+
+    <!--    parameterType ：数类型-->
+
+    <!--
+        特殊字符处理：
+        转义
+        CDATA区: CD以后会跳转
+    -->
+
+    <!--
+        多条件查询
+        使用 #{内容} 时，里面的内容必须和实体类属性名 or map集合中键的名称 保持一致
+    -->
+
+    <!--
+        动态条件查询:
+        * if:条件查询
+            * test: 逻辑表达式
+        * 问题：语句不存在以后and多出来这个语法就错了
+            * 恒等式 (下面那种)
+            * <where> 替换where关键字 (在下面那种)
+    -->
+
+    <!--
+        单动态条件查询：条件不确定是哪个
+        choose：switch
+        when： case
+        otherwise： default
+
+        这里用了where标签 加不加otherwise都可以
+    -->
+
+    <!--
+        foreach：遍历
+            collection 属性：
+                mybatis会将数组参数，封装为一个Map集合。
+                TODO 这很重要
+                默认：array = 数组    <foreach collection="array"
+                用Para注解改变map集合默认key名称
+                使用@Param注解改变map集合的默认key的名称
+            item 属性：本次迭代获取到的元素。
+            separator 属性：集合项迭代之间的分隔符。
+            open 属性：该属性值是在拼接SQL语句之前拼接的语句，只会拼接一次
+            close 属性：该属性值是在拼接SQL语句拼接后拼接的语句，只会拼接一次
+    -->
+
+
+
+</mapper>

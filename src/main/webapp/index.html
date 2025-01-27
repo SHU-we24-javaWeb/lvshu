@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>小绿书--小旅SHU旅游交流平台 | 即将上线</title>
+
+    <!-- CSS 文件 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/tooplate-kool-form-pack.css" rel="stylesheet">
+</head>
+
+<body>
+
+<main>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-lg-12 col-12 d-flex align-items-center">
+                    <a class="site-header-text d-flex justify-content-center align-items-center me-auto" href="index.html">
+                        <i class="bi-box"></i>
+                        <span>
+                                    小绿书--小旅SHU旅游交流平台
+                                </span>
+                    </a>
+
+                    <ul class="social-icon d-flex justify-content-center align-items-center mx-auto">
+                        <span class="text-white me-4 d-none d-lg-block">保持联系</span>
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-instagram"></a>
+                        </li>
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-twitter"></a>
+                        </li>
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-whatsapp"></a>
+                        </li>
+                    </ul>
+
+                    <div>
+                        <a href="#" class="custom-btn custom-border-btn btn" data-bs-toggle="modal" data-bs-target="#subscribeModal">通知我
+                            <i class="bi-arrow-right ms-2"></i>
+                        </a>
+                        <!-- 登录按钮 -->
+                        <a href="login.html" class="custom-btn custom-border-btn btn ms-3">登录</a>
+                        <!-- 注册按钮 -->
+                        <a href="register.html" class="custom-btn custom-border-btn btn ms-3">注册</a>
+                    </div>
+
+                    <a class="bi-list offcanvas-icon" data-bs-toggle="offcanvas" href="#offcanvasMenu" role="button" aria-controls="offcanvasMenu"></a>
+
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body d-flex flex-column justify-content-center align-items-center">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="login.html">登录页面</a>
+                    </li>
+                    <li>
+                        <a href="register.html">创建账户</a>
+                    </li>
+                    <li>
+                        <a href="password-reset.html">重置密码</a>
+                    </li>
+                    <li>
+                        <a href="404.html">404 页面</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">联系我们</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- 弹窗 -->
+    <div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form action="#" method="get" class="custom-form mt-lg-4 mt-2" role="form">
+                        <h2 class="modal-title" id="subscribeModalLabel">保持更新</h2>
+                        <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="your@email.com" required="">
+                        <button type="submit" class="form-control">通知</button>
+                    </form>
+                </div>
+
+                <div class="modal-footer justify-content-center">
+                    <p>通过注册，您同意我们的隐私声明</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-12 mx-auto">
+                    <small>我们的网站正在建设中。
+                        <a rel="nofollow" target="_blank" href="https://www.pexels.com/zh-cn/video/2882116/">背景绿色视频由Kelly提供</a></small>
+                    <h1 class="text-white mt-2 mb-4 pb-2">
+                        敬请期待！
+                    </h1>
+
+                    <ul class="countdown d-flex flex-wrap align-items-center">
+                        <li class="countdown-item d-flex flex-column justify-content-center align-items-center">
+                            <h2 class="countdown-title days">14</h2>
+                            <span class="countdown-text">天</span>
+                        </li>
+
+                        <li class="countdown-item d-flex flex-column justify-content-center align-items-center">
+                            <h2 class="countdown-title hours">10</h2>
+                            <span class="countdown-text">小时</span>
+                        </li>
+
+                        <li class="countdown-item d-flex flex-column justify-content-center align-items-center">
+                            <h2 class="countdown-title minutes">15</h2>
+                            <span class="countdown-text">分钟</span>
+                        </li>
+
+                        <li class="countdown-item d-flex flex-column justify-content-center align-items-center">
+                            <h2 class="countdown-title seconds">34</h2>
+                            <span class="countdown-text">秒</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-wrap">
+            <video autoplay="" loop="" muted="" class="custom-video" poster="">
+                <source src="videos/video.mp4" type="video/mp4">
+                您的浏览器不支持视频标签。
+            </video>
+        </div>
+    </section>
+</main>
+
+<!-- JavaScript 文件 -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/countdown.js"></script>
+<script src="js/init.js"></script>
+
+</body>
+</html>
