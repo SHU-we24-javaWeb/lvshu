@@ -14,6 +14,7 @@
     </typeAliases>
 
     <!--
+    TODO
     environments：配置数据库连接信息，可以配置多个environment，切换default属性来切换不同的环境
     -->
     <environments default="development">
@@ -23,6 +24,7 @@
             <!--数据库连接信息-->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+<!--                TODO-->
                 <property name="url" value="jdbc:mysql://localhost:3306/lvshu?useSSL=false&amp;useServerprepStmts=true"/>
                 <property name="username" value="root"/>
                 <property name="password" value="12345678"/>
