@@ -7,9 +7,9 @@
 <mapper namespace="com.lvshu.mapper.UserMapper">
 
     <!--复用的sql片段-->
-    <sql id="user_column">
-        user_id, username, password, gender, date_of_birth, native_place, mobile_phone, email, major, status, created_at
-    </sql>
+<!--    <sql id="user_column">-->
+<!--        user_id, username, password, gender, date_of_birth, native_place, mobile_phone, email, major, status, created_at-->
+<!--    </sql>-->
 
 
     <resultMap id="UserResultMap" type="User">
@@ -21,11 +21,19 @@
         column：表的列名
         property：实体类的属性名
         -->
-        <result column="user_id" property="userId"/>
+        <id column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="gender" property="gender"/>
         <result column="date_of_birth" property="dateOfBirth"/>
         <result column="native_place" property="nativePlace"/>
         <result column="mobile_phone" property="mobilePhone"/>
+        <result column="email" property="email"/>
+        <result column="major" property="major"/>
+        <result column="status" property="status"/>
         <result column="created_at" property="createdAt"/>
+        <result column="signature" property="signature"/>
+        <result column="avatar" property="avatar"/>
     </resultMap>
 
 

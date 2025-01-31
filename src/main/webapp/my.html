@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - 小绿书</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200&family=Unbounded:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/tooplate-kool-form-pack.css" rel="stylesheet">
+    <style>
+        /* 继承基础样式 */
+        .menu-buttons {
+            background-color: rgba(44, 44, 44, 0.9);
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .menu-btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            background-color: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover,
+        .menu-btn.active {
+            background-color: #ffffff;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        /* 个人中心特定样式 */
+        .profile-section {
+            margin-top: 100px;
+            padding: 40px 0;
+            color: #ffffff;
+        }
+
+        .profile-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 60px;
+            object-fit: cover;
+            border: 3px solid #ffffff;
+        }
+
+        .profile-info h2 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .edit-btn {
+            background-color: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            padding: 8px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .edit-btn:hover {
+            background-color: #ffffff;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .collection-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .collection-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .collection-content {
+            padding: 20px;
+        }
+
+        .collection-content h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+
+        .collection-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background-color: transparent;
+            border: 1px solid #ffffff;
+            color: #ffffff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        footer {
+            background-color: rgba(44, 44, 44, 0.9);
+            color: #ffffff;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .video-wrap {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .custom-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 视频背景 -->
+    <div class="video-wrap">
+        <video autoplay loop muted class="custom-video">
+            <source src="videos/video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- 菜单栏 -->
+    <div class="menu-buttons">
+        <a href="home.html" class="menu-btn">
+            <i class="bi bi-house-door"></i> 首页
+        </a>
+        <a href="search.html" class="menu-btn">
+            <i class="bi bi-search"></i> 搜索
+        </a>
+        <a href="create.html" class="menu-btn">
+            <i class="bi bi-fire"></i> 创作
+        </a>
+        <a href="my.html" class="menu-btn active">
+            <i class="bi bi-person"></i> 我的
+        </a>
+    </div>
+
+    <!-- 个人中心内容 -->
+    <div class="profile-section">
+        <div class="container">
+            <!-- 个人信息卡片 -->
+            <div class="profile-card">
+                <div class="profile-header">
+                    <img src="https://via.placeholder.com/120" alt="用户头像" class="profile-avatar">
+                    <div class="profile-info">
+                        <h2>用户昵称</h2>
+                        <p>个性签名：热爱旅行，记录生活的点点滴滴</p>
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">42</div>
+                                <div class="stat-label">收藏</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">128</div>
+                                <div class="stat-label">关注</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">256</div>
+                                <div class="stat-label">粉丝</div>
+                            </div>
+                        </div>
+                        <a href="#" class="edit-btn" data-toggle="modal" data-target="#editProfileModal">
+                            <i class="bi bi-pencil"></i> 编辑资料
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 内容标签页 -->
+            <div class="tab-buttons">
+                <button class="tab-btn active">我的收藏</button>
+                <button class="tab-btn">我的攻略</button>
+            </div>
+
+            <!-- 修改内容标签页部分 -->
+            <div class="tab-content mt-4">
+                <!-- 我的收藏 -->
+                <div class="tab-pane fade show active" id="collections">
+                    <div class="collection-grid">
+                        <!-- 收藏项目1 -->
+                        <div class="collection-card">
+                            <img src="https://img.zcool.cn/community/031rqdfipqluron1tur9uls3935.png" alt="北京故宫"
+                                class="collection-image">
+                            <div class="collection-content">
+                                <h3>北京故宫一日游完全攻略</h3>
+                                <p>详细介绍故宫参观路线、购票信息、最佳拍照点位等实用信息。</p>
+                                <div class="collection-meta">
+                                    <span><i class="bi bi-heart-fill"></i> 收藏于 2024-01-15</span>
+                                    <a href="#" class="text-white">查看详情</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 收藏项目2 -->
+                        <div class="collection-card">
+                            <img src="https://th.bing.com/th/id/R.3cf01ec05f272a9e9dd166b76534fcac?rik=ugRSZ%2fSeMYjFmA&pid=ImgRaw&r=0"
+                                alt="上海外滩" class="collection-image">
+                            <div class="collection-content">
+                                <h3>上海外滩夜景打卡攻略</h3>
+                                <p>最佳观景位置、拍照技巧、周边美食推荐等详细信息。</p>
+                                <div class="collection-meta">
+                                    <span><i class="bi bi-heart-fill"></i> 收藏于 2024-01-14</span>
+                                    <a href="#" class="text-white">查看详情</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 我的攻略 -->
+                <div class="tab-pane fade" id="my-guides">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="text-white mb-0">我发布的攻略</h3>
+                        <a href="create.html" class="btn btn-primary">
+                            <i class="bi bi-plus-lg"></i> 发布新攻略
+                        </a>
+                    </div>
+                    <div class="collection-grid">
+                        <!-- 示例攻略卡片 -->
+                        <div class="collection-card">
+                            <img src="path_to_image" alt="攻略图片" class="collection-image">
+                            <div class="collection-content">
+                                <div class="d-flex justify-content-between">
+                                    <h3>上海三日游记</h3>
+                                    <div class="dropdown">
+                                        <button class="btn btn-link text-white" type="button" data-toggle="dropdown">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#" onclick="editGuide(1)">编辑</a>
+                                            <a class="dropdown-item text-danger" href="#"
+                                                onclick="deleteGuide(1)">删除</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p>发布于：2024-01-15</p>
+                                <div class="guide-stats">
+                                    <span><i class="bi bi-eye"></i> 1.2k</span>
+                                    <span><i class="bi bi-heart"></i> 89</span>
+                                    <span><i class="bi bi-chat"></i> 23</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 修改编辑资料模态框部分 -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="editProfileModalLabel">编辑个人资料</h4>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editProfileForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>头像</label>
+                                    <input type="file" class="form-control-file" name="avatar" accept="image/*">
+                                    <img id="avatarPreview" src="" alt="头像预览" class="mt-2"
+                                        style="max-width: 150px; display: none;">
+                                </div>
+                                <div class="form-group">
+                                    <label>用户名</label>
+                                    <input type="text" class="form-control" name="username" value="当前用户名" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>性别</label>
+                                    <select class="form-control" name="gender">
+                                        <option value="M">男</option>
+                                        <option value="F">女</option>
+                                        <option value="O">其他</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>出生日期</label>
+                                    <input type="date" class="form-control" name="dateOfBirth">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>手机号</label>
+                                    <input type="tel" class="form-control" name="mobilePhone" pattern="[0-9]{11}">
+                                </div>
+                                <div class="form-group">
+                                    <label>邮箱</label>
+                                    <input type="email" class="form-control" name="email">
+                                </div>
+                                <div class="form-group">
+                                    <label>籍贯</label>
+                                    <input type="text" class="form-control" name="nativePlace">
+                                </div>
+                                <div class="form-group">
+                                    <label>专业</label>
+                                    <input type="text" class="form-control" name="major">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>个性签名</label>
+                            <textarea class="form-control" name="signature" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="updateProfile()">保存更改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p class="text-center mb-0">© 2025 小绿书--小旅SHU旅游交流平台 版权所有</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript 文件 -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 标签页切换
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                // 移除所有标签的active类
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                // 为当前点击的标签添加active类
+                this.classList.add('active');
+
+                // 切换内容显示
+                const targetId = this.getAttribute('data-target');
+                document.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.remove('show', 'active');
+                });
+                document.querySelector(targetId).classList.add('show', 'active');
+            });
+        });
+
+        // 头像预览
+        document.querySelector('input[name="avatar"]').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const preview = document.getElementById('avatarPreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 更新个人资料
+        function updateProfile() {
+            const formData = new FormData(document.getElementById('editProfileForm'));
+
+            // 这里添加向后端发送数据的逻辑
+            fetch('/api/user/update-profile', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('个人资料更新成功！');
+                        $('#editProfileModal').modal('hide');
+                        // 刷新页面或更新显示
+                        location.reload();
+                    } else {
+                        alert('更新失败：' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('更新失败，请稍后重试');
+                });
+        }
+
+        // 编辑攻略
+        function editGuide(guideId) {
+            window.location.href = `create.html?edit=${guideId}`;
+        }
+
+        // 删除攻略
+        function deleteGuide(guideId) {
+            if (confirm('确定要删除这篇攻略吗？此操作不可撤销。')) {
+                // 这里添加删除攻略的逻辑
+                fetch(`/api/guide/delete/${guideId}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('攻略已删除');
+                            // 从页面移除对应的卡片
+                            document.querySelector(`[data-guide-id="${guideId}"]`).remove();
+                        } else {
+                            alert('删除失败：' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('删除失败，请稍后重试');
+                    });
+            }
+        }
+    </script>
+</body>
+
+</html>

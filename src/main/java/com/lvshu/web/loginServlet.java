@@ -19,7 +19,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
 @WebServlet("/loginServlet")
-public class loginServlet  extends HttpServlet {
+public class loginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 设置请求的字符编码为UTF-8,不然会出乱码
@@ -52,7 +52,7 @@ public class loginServlet  extends HttpServlet {
             writer.write("<html><body>");
             writer.write("<h1>登录成功！</h1>");
             writer.write("<script>window.alert(\"登陆成功\");</script>");
-            writer.write("<script>window.location.href='index.html';</script>"); // 登录成功后跳转
+            writer.write("<script>window.location.href='home.html';</script>"); // 登录成功后跳转
             writer.write("</body></html>");
         } else {
             // 登陆失败，弹出提示框
@@ -61,7 +61,6 @@ public class loginServlet  extends HttpServlet {
             writer.write("<script>alert('用户名或密码错误！'); window.history.back();</script>"); // 弹窗并返回上一步
             writer.write("</body></html>");
         }
-
 
     }
 

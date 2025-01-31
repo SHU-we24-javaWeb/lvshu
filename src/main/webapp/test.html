@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小绿书--小旅SHU旅游交流平台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200&family=Unbounded:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/tooplate-kool-form-pack.css" rel="stylesheet">
+    <style>
+        .menu-buttons {
+            background-color: rgba(44, 44, 44, 0.9);
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .menu-btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            background-color: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover,
+        .menu-btn.active {
+            background-color: #ffffff;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .content-section {
+            margin-top: 100px;
+            padding: 40px 0;
+        }
+
+        .jumbotron {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            color: #ffffff;
+            backdrop-filter: blur(10px);
+        }
+
+        .jumbotron h1 {
+            color: #ffffff;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .jumbotron .lead {
+            color: #ffffff;
+            font-size: 18px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .thumbnail {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 20px;
+            padding: 20px;
+            color: #ffffff;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+
+        .thumbnail:hover {
+            transform: translateY(-10px);
+        }
+
+        .thumbnail img {
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .thumbnail h3 {
+            color: #ffffff;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .thumbnail p {
+            color: #ffffff;
+            font-size: 16px;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        .thumbnail .caption {
+            color: #ffffff;
+        }
+
+        .btn-primary {
+            background-color: transparent;
+            border: 2px solid #ffffff;
+            border-radius: 50px;
+            padding: 10px 25px;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #ffffff;
+            color: #000000;
+            border-color: #ffffff;
+        }
+
+        .video-wrap {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .custom-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        footer {
+            background-color: rgba(44, 44, 44, 0.9);
+            color: #ffffff;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 视频背景 -->
+    <div class="video-wrap">
+        <video autoplay loop muted class="custom-video">
+            <source src="videos/video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- 菜单栏 -->
+    <div class="menu-buttons">
+        <a href="home.html" class="menu-btn active">
+            <i class="bi bi-house-door"></i> 首页
+        </a>
+        <a href="search.html" class="menu-btn">
+            <i class="bi bi-search"></i> 搜索
+        </a>
+        <a href="create.html" class="menu-btn">
+            <i class="bi bi-fire"></i> 创作
+        </a>
+        <a href="my.html" class="menu-btn">
+            <i class="bi bi-person"></i> 我的
+        </a>
+    </div>
+
+    <!-- 内容部分 -->
+    <div class="content-section">
+        <div class="container">
+            <div class="jumbotron">
+                <h1>发现精彩旅程</h1>
+                <p class="lead">在这里，您可以找到最新最全的旅游攻略，让每一次旅行都充满惊喜。我们为您精心准备了各地特色景点介绍、美食推荐、交通攻略等实用信息。</p>
+            </div>
+
+            <h2 class="text-center text-white my-5">热门目的地攻略</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <img src="https://img.zcool.cn/community/031rqdfipqluron1tur9uls3935.png" alt="北京"
+                            class="img-fluid">
+                        <div class="caption">
+                            <h3>北京三日游完全攻略</h3>
+                            <p>走访故宫、长城、颐和园等经典景点，体验京城文化。深度游览建议与注意事项。</p>
+                            <p><a href="#" class="btn btn-primary">查看详情</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <img src="https://th.bing.com/th/id/R.3cf01ec05f272a9e9dd166b76534fcac?rik=ugRSZ%2fSeMYjFmA&pid=ImgRaw&r=0"
+                            alt="上海" class="img-fluid">
+                        <div class="caption">
+                            <h3>魔都上海精选攻略</h3>
+                            <p>外滩夜景、迪士尼乐园、田子坊文艺之旅。包含交通建议和美食推荐。</p>
+                            <p><a href="#" class="btn btn-primary">查看详情</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="thumbnail">
+                        <img src="https://th.bing.com/th/id/R.b56aa4bb51cabc689de0e62b44e9ded1?rik=68%2bi6nBs8vAjaA&riu=http%3a%2f%2fseopic.699pic.com%2fphoto%2f50062%2f5802.jpg_wh1200.jpg&ehk=fapBxRe0u39jJ8t3P3G2Qobt2aqqpWZaTACd54Ycyzc%3d&risl=&pid=ImgRaw&r=0"
+                            alt="杭州" class="img-fluid">
+                        <div class="caption">
+                            <h3>杭州西湖游玩攻略</h3>
+                            <p>西湖十景、灵隐寺、宋城一日游推荐路线。季节性景点推荐和住宿建议。</p>
+                            <p><a href="#" class="btn btn-primary">查看详情</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p class="text-center mb-0">© 2025 小绿书--小旅SHU旅游交流平台 版权所有</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript 文件 -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

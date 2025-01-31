@@ -1,10 +1,10 @@
 package com.lvshu.pojo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class User {
 
-    private int userId;                // 自增主键
+    private Integer userId;                // 自增主键
     private String username;           // 用户名
     private String password;           // 哈希后的密码
     private String gender;             // 性别 (M, F, O)
@@ -15,12 +15,14 @@ public class User {
     private String major;              // 专业
     private String status;             // 用户状态 (active, inactive, banned)
     private Date createdAt;            // 创建时间
+    private String signature;           // 个性签名
+    private String avatar;              // 头像
 
     // 默认构造方法
     public User() {}
 
     // 全参数构造方法
-    public User(int userId, String username, String password, String gender, Date dateOfBirth,
+    public User(Integer userId, String username, String password, String gender, Date dateOfBirth,
                 String nativePlace, String mobilePhone, String email, String major,
                 String status, Date createdAt) {
         this.userId = userId;
@@ -38,11 +40,11 @@ public class User {
 
     // Getter and Setter Methods
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -124,6 +126,22 @@ public class User {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     @Override
