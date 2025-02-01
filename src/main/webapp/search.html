@@ -204,64 +204,41 @@
     <!-- 搜索区域 -->
     <div class="search-section">
         <div class="container">
-            <div class="search-box">
-                <input type="text" class="search-input" placeholder="搜索目的地、景点或攻略...">
-                <div class="filter-tags">
-                    <span class="filter-tag active">全部</span>
-                    <span class="filter-tag">景点游览</span>
-                    <span class="filter-tag">美食攻略</span>
-                    <span class="filter-tag">交通住宿</span>
-                    <span class="filter-tag">购物推荐</span>
-                    <span class="filter-tag">当地体验</span>
+            <form id="searchForm" onsubmit="return performSearch(event)">
+                <div class="search-box">
+                    <input type="text" name="keyword" class="search-input" placeholder="搜索目的地、景点或攻略内容/标题...">
+                    <br><br>
+                    季节：
+                    <select name="season" class="search-box">
+                        <option>四季</option>
+                        <option>春</option>
+                        <option>夏</option>
+                        <option>秋</option>
+                        <option>冬</option>
+                    </select>
+                    分类：
+                    <select name="category" class="search-box">
+                        <option>旅游</option>
+                        <option>餐饮</option>
+                        <option>住宿</option>
+                        <option>交通</option>
+                        <option>其他</option>
+                    </select>
+                    价格区间：
+                    <select name="price_range" class="search-box">
+                        <option>0-500</option>
+                        <option>500-1000</option>
+                        <option>1000-2000</option>
+                        <option>2000-5000</option>
+                        <option>5000+</option>
+                    </select>
+                    <input type="submit" class="search-box" value="搜索" style="float: right;">
                 </div>
-            </div>
+            </form>
 
-            <!-- 搜索结果 -->
-            <div class="search-results">
-                <!-- 结果卡片1 -->
-                <div class="result-card">
-                    <img src="https://img.zcool.cn/community/031rqdfipqluron1tur9uls3935.png" alt="北京故宫"
-                        class="result-image">
-                    <div class="result-content">
-                        <h3>北京故宫一日游完全攻略</h3>
-                        <p>详细介绍故宫参观路线、购票信息、最佳拍照点位等实用信息。</p>
-                        <div class="result-meta">
-                            <span><i class="bi bi-eye"></i> 2.3k</span>
-                            <span><i class="bi bi-heart"></i> 156</span>
-                            <span><i class="bi bi-clock"></i> 2024-01-15</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 结果卡片2 -->
-                <div class="result-card">
-                    <img src="https://th.bing.com/th/id/R.3cf01ec05f272a9e9dd166b76534fcac?rik=ugRSZ%2fSeMYjFmA&pid=ImgRaw&r=0"
-                        alt="上海外滩" class="result-image">
-                    <div class="result-content">
-                        <h3>上海外滩夜景打卡攻略</h3>
-                        <p>最佳观景位置、拍照技巧、周边美食推荐等详细信息。</p>
-                        <div class="result-meta">
-                            <span><i class="bi bi-eye"></i> 1.8k</span>
-                            <span><i class="bi bi-heart"></i> 142</span>
-                            <span><i class="bi bi-clock"></i> 2024-01-14</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 结果卡片3 -->
-                <div class="result-card">
-                    <img src="https://th.bing.com/th/id/R.b56aa4bb51cabc689de0e62b44e9ded1?rik=68%2bi6nBs8vAjaA&riu=http%3a%2f%2fseopic.699pic.com%2fphoto%2f50062%2f5802.jpg_wh1200.jpg&ehk=fapBxRe0u39jJ8t3P3G2Qobt2aqqpWZaTACd54Ycyzc%3d&risl=&pid=ImgRaw&r=0"
-                        alt="杭州西湖" class="result-image">
-                    <div class="result-content">
-                        <h3>杭州西湖春季游玩攻略</h3>
-                        <p>春季最佳游玩路线、赏花地点、特色小吃推荐。</p>
-                        <div class="result-meta">
-                            <span><i class="bi bi-eye"></i> 1.5k</span>
-                            <span><i class="bi bi-heart"></i> 128</span>
-                            <span><i class="bi bi-clock"></i> 2024-01-13</span>
-                        </div>
-                    </div>
-                </div>
+            <!-- 搜索结果容器 -->
+            <div class="search-results" id="searchResults">
+                <!-- 搜索结果将在这里动态显示 -->
             </div>
         </div>
     </div>
@@ -276,6 +253,73 @@
     <!-- JavaScript 文件 -->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+    function performSearch(event) {
+        event.preventDefault();
+        
+        const form = document.getElementById('searchForm');
+        const formData = new FormData(form);
+        const searchParams = new URLSearchParams(formData);
+        
+        // 显示加载提示
+        document.getElementById('searchResults').innerHTML = '<div class="text-center text-white">搜索中...</div>';
+
+        // 发送搜索请求
+        fetch('/lvshu/searchServlet?' + searchParams.toString())
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    throw new Error(data.message || '搜索失败');
+                }
+                
+                const resultsContainer = document.getElementById('searchResults');
+                
+                if (!data.guides || data.guides.length === 0) {
+                    resultsContainer.innerHTML = '<div class="text-center text-white">未找到相关攻略</div>';
+                    return;
+                }
+
+                // 显示搜索结果
+                resultsContainer.innerHTML = data.guides.map(guide => `
+                    <div class="result-card">
+                        <img src="${guide.coverImage || 'images/default-guide.jpg'}" 
+                             alt="${escapeHtml(guide.title)}" class="result-image">
+                        <div class="result-content">
+                            <h3>${escapeHtml(guide.title)}</h3>
+                            <p>${escapeHtml(guide.content ? guide.content.substring(0, 100) : '')}...</p>
+                            <div class="result-meta">
+                                <span><i class="bi bi-geo-alt"></i> ${escapeHtml(guide.location || '')}</span>
+                                <span><i class="bi bi-calendar"></i> ${escapeHtml(guide.season || '')}</span>
+                                <span><i class="bi bi-tag"></i> ${escapeHtml(guide.category || '')}</span>
+                                <span><i class="bi bi-currency-yen"></i> ${escapeHtml(guide.priceRange || '')}</span>
+                                <span><i class="bi bi-eye"></i> ${guide.viewCount || 0}</span>
+                                <span><i class="bi bi-heart"></i> ${guide.favoriteCount || 0}</span>
+                            </div>
+                            <a href="guide-detail.html?id=${guide.guideId}" 
+                               class="btn btn-link text-white">查看详情</a>
+                        </div>
+                    </div>
+                `).join('');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('searchResults').innerHTML = 
+                    `<div class="text-center text-white">搜索出错：${escapeHtml(error.message)}</div>`;
+            });
+
+        return false;
+    }
+
+    function escapeHtml(unsafe) {
+        if (!unsafe) return '';
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+    </script>
 </body>
 
 </html>
