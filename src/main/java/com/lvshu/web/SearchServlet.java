@@ -55,24 +55,27 @@ public class SearchServlet extends HttpServlet {
                 // 构建JSON响应
                 StringBuilder json = new StringBuilder();
                 json.append("{\"success\":true,\"guides\":[");
-                
+
                 for (int i = 0; i < guides.size(); i++) {
-                    if (i > 0) json.append(",");
+                    if (i > 0)
+                        json.append(",");
                     Guide guide = guides.get(i);
                     json.append("{")
-                        .append("\"guideId\":").append(guide.getGuideId()).append(",")
-                        .append("\"title\":\"").append(escapeJson(guide.getTitle())).append("\",")
-                        .append("\"content\":\"").append(escapeJson(guide.getContent())).append("\",")
-                        .append("\"coverImage\":\"").append(escapeJson(guide.getCoverImage())).append("\",")
-                        .append("\"location\":\"").append(escapeJson(guide.getLocation())).append("\",")
-                        .append("\"season\":\"").append(escapeJson(guide.getSeason())).append("\",")
-                        .append("\"category\":\"").append(escapeJson(guide.getCategory())).append("\",")
-                        .append("\"priceRange\":\"").append(escapeJson(guide.getPriceRange())).append("\",")
-                        .append("\"viewCount\":").append(guide.getViewCount() != null ? guide.getViewCount() : 0).append(",")
-                        .append("\"favoriteCount\":").append(guide.getFavoriteCount() != null ? guide.getFavoriteCount() : 0)
-                        .append("}");
+                            .append("\"guideId\":").append(guide.getGuideId()).append(",")
+                            .append("\"title\":\"").append(escapeJson(guide.getTitle())).append("\",")
+                            .append("\"content\":\"").append(escapeJson(guide.getContent())).append("\",")
+                            .append("\"coverImage\":\"").append(escapeJson(guide.getCoverImage())).append("\",")
+                            .append("\"location\":\"").append(escapeJson(guide.getLocation())).append("\",")
+                            .append("\"season\":\"").append(escapeJson(guide.getSeason())).append("\",")
+                            .append("\"category\":\"").append(escapeJson(guide.getCategory())).append("\",")
+                            .append("\"priceRange\":\"").append(escapeJson(guide.getPriceRange())).append("\",")
+                            .append("\"viewCount\":").append(guide.getViewCount() != null ? guide.getViewCount() : 0)
+                            .append(",")
+                            .append("\"favoriteCount\":")
+                            .append(guide.getFavoriteCount() != null ? guide.getFavoriteCount() : 0)
+                            .append("}");
                 }
-                
+
                 json.append("]}");
                 out.write(json.toString());
             }
@@ -83,12 +86,13 @@ public class SearchServlet extends HttpServlet {
     }
 
     private String escapeJson(String text) {
-        if (text == null) return "";
+        if (text == null)
+            return "";
         return text.replace("\\", "\\\\")
-                  .replace("\"", "\\\"")
-                  .replace("\n", "\\n")
-                  .replace("\r", "\\r")
-                  .replace("\t", "\\t");
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r")
+                .replace("\t", "\\t");
     }
 
     @Override
