@@ -90,6 +90,14 @@ public interface GuideMapper {
         List<Guide> search(String keyword);
 
         /**
+         * 根据关键词、季节、分类、价格区间搜索攻略
+         */
+        List<Guide> searchByKeywords(@Param("keyword") String keyword,
+                        @Param("season") String season,
+                        @Param("category") String category,
+                        @Param("priceRange") String priceRange);
+
+        /**
          * 增加浏览次数
          */
         @Update("UPDATE guide SET view_count = view_count + 1 WHERE guide_id = #{guideId}")

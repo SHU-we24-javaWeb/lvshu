@@ -102,18 +102,19 @@
         }
 
         .search-results {
+            margin-top: 30px;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
-            padding: 20px 0;
         }
 
         .result-card {
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s;
+            margin-bottom: 20px;
             backdrop-filter: blur(10px);
+            transition: transform 0.3s;
         }
 
         .result-card:hover {
@@ -128,27 +129,21 @@
 
         .result-content {
             padding: 20px;
-            color: #ffffff;
-        }
-
-        .result-content h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.2em;
-        }
-
-        .result-content p {
-            margin: 0;
-            opacity: 0.9;
-            font-size: 0.9em;
         }
 
         .result-meta {
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .result-meta span {
+            display: flex;
             align-items: center;
-            margin-top: 15px;
-            font-size: 0.8em;
-            opacity: 0.8;
+            gap: 5px;
         }
 
         footer {
@@ -254,39 +249,40 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script>
-    function performSearch(event) {
-        event.preventDefault();
-        
-        const form = document.getElementById('searchForm');
-        const formData = new FormData(form);
-        const searchParams = new URLSearchParams(formData);
-        
-        // 显示加载提示
-        document.getElementById('searchResults').innerHTML = '<div class="text-center text-white">搜索中...</div>';
+        function performSearch(event) {
+            event.preventDefault();
+            const form = document.getElementById('searchForm');
+            const formData = new FormData(form);
+            
+            // 显示加载提示
+            document.getElementById('searchResults').innerHTML = 
+                '<div class="text-center text-white">搜索中...</div>';
 
-        // 发送搜索请求
-        fetch('/lvshu/searchServlet?' + searchParams.toString())
+            fetch('/lvshu/searchServlet', {
+                method: 'POST',
+                body: formData
+            })
             .then(response => response.json())
             .then(data => {
+                const resultsContainer = document.getElementById('searchResults');
+                
                 if (!data.success) {
                     throw new Error(data.message || '搜索失败');
                 }
                 
-                const resultsContainer = document.getElementById('searchResults');
-                
                 if (!data.guides || data.guides.length === 0) {
-                    resultsContainer.innerHTML = '<div class="text-center text-white">未找到相关攻略</div>';
+                    resultsContainer.innerHTML = 
+                        '<div class="text-center text-white">未找到相关攻略</div>';
                     return;
                 }
 
-                // 显示搜索结果
                 resultsContainer.innerHTML = data.guides.map(guide => `
                     <div class="result-card">
                         <img src="${guide.coverImage || 'images/default-guide.jpg'}" 
                              alt="${escapeHtml(guide.title)}" class="result-image">
                         <div class="result-content">
-                            <h3>${escapeHtml(guide.title)}</h3>
-                            <p>${escapeHtml(guide.content ? guide.content.substring(0, 100) : '')}...</p>
+                            <h3 class="text-white">${escapeHtml(guide.title)}</h3>
+                            <p class="text-white-50">${escapeHtml(guide.content ? guide.content.substring(0, 100) : '')}...</p>
                             <div class="result-meta">
                                 <span><i class="bi bi-geo-alt"></i> ${escapeHtml(guide.location || '')}</span>
                                 <span><i class="bi bi-calendar"></i> ${escapeHtml(guide.season || '')}</span>
@@ -296,7 +292,7 @@
                                 <span><i class="bi bi-heart"></i> ${guide.favoriteCount || 0}</span>
                             </div>
                             <a href="guide-detail.html?id=${guide.guideId}" 
-                               class="btn btn-link text-white">查看详情</a>
+                               class="btn btn-outline-light mt-3">查看详情</a>
                         </div>
                     </div>
                 `).join('');
@@ -306,19 +302,17 @@
                 document.getElementById('searchResults').innerHTML = 
                     `<div class="text-center text-white">搜索出错：${escapeHtml(error.message)}</div>`;
             });
+        }
 
-        return false;
-    }
-
-    function escapeHtml(unsafe) {
-        if (!unsafe) return '';
-        return unsafe
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
+        function escapeHtml(unsafe) {
+            if (!unsafe) return '';
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
     </script>
 </body>
 

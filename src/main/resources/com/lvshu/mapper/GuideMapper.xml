@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lvshu.mapper.GuideMapper">
+    <resultMap id="guideResultMap" type="com.lvshu.pojo.Guide">
+        <id property="guideId" column="guide_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="imagePaths" column="image_paths"/>
+        <result property="coverImage" column="cover_image"/>
+        <result property="authorId" column="author_id"/>
+        <result property="category" column="category"/>
+        <result property="location" column="location"/>
+        <result property="tags" column="tags"/>
+        <result property="season" column="season"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="status" column="status"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="favoriteCount" column="favorite_count"/>
+        <result property="likeCount" column="like_count"/>
+        <result property="isFeatured" column="is_featured"/>
+        <result property="priceRange" column="price_range"/>
+        <association property="author" column="author_id" 
+                     select="com.lvshu.mapper.UserMapper.selectById"/>
+    </resultMap>
+
+    <select id="searchByKeywords" resultMap="guideResultMap">
+        SELECT * FROM guide 
+        <where>
+            status = 'published'
+            <if test="keyword != null and keyword != ''">
+                AND (
+                    location LIKE CONCAT('%', #{keyword}, '%')
+                    OR content LIKE CONCAT('%', #{keyword}, '%')
+                    OR title LIKE CONCAT('%', #{keyword}, '%')
+                )
+            </if>
+            <if test="season != null and season != '' and season != '四季'">
+                AND season = #{season}
+            </if>
+            <if test="category != null and category != ''">
+                AND category = #{category}
+            </if>
+            <if test="priceRange != null and priceRange != ''">
+                AND price_range = #{priceRange}
+            </if>
+        </where>
+        ORDER BY created_at DESC
+    </select>
+</mapper> 
