@@ -9,7 +9,7 @@ public class Guide {
     private String imagePaths; // 攻略涉及的图片路径，多个路径用逗号分隔
     private String coverImage; // 封面图片路径
     private Integer authorId; // 攻略作者的用户ID，关联user表
-    private String category; // 攻略的分类，如"旅游"、"餐饮"、"住宿"等
+    private String category; // 攻略的分类:旅游', '餐饮', '住宿', '交通', '其他') DEFAULT '旅游'
     private String location; // 攻略涉及的地点（城市、景点等）
     private String tags; // 攻略的标签，用逗号分隔
     private String season; // 攻略适合的季节：春、夏、秋、冬、四季

@@ -30,7 +30,7 @@ CREATE TABLE guide (
                        image_paths TEXT,                                   -- 攻略涉及的图片路径，可以存储多个图片路径，使用逗号分隔
                        cover_image VARCHAR(255),                           -- 封面图片路径
                        author_id INT NOT NULL,                             -- 攻略作者的用户 ID，外键关联到 user 表
-                       category VARCHAR(50),                               -- 攻略的分类，例如“旅游”、“餐饮”、“住宿”等
+                       category ENUM('旅游', '餐饮', '住宿', '交通', '其他') DEFAULT '旅游',-- 攻略的分类，例如“旅游”、“餐饮”、“住宿”,"交通"“其他”等
                        location VARCHAR(100),                              -- 攻略涉及的地点（城市、景点等）
                        tags VARCHAR(255),                                  -- 攻略的标签，用逗号分隔（例如“背包旅游、上海”）
                        season ENUM('春', '夏', '秋', '冬', '四季') DEFAULT '四季',  -- 攻略适合的季节，默认四季都适合
