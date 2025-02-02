@@ -342,7 +342,7 @@
 
                 <div class="form-group">
                     <label>上传封面图片</label>
-                    <input type="file" class="form-control" id="coverImage" name="coverImage" accept="image/*">
+                    <input type="file" class="form-control" id="coverImage" name="coverImage" accept="image/*" accept-charset="UTF-8">
                     <div class="cover-preview" id="coverPreview">
                         <!-- 封面图片预览将在这里显示 -->
                     </div>
@@ -350,7 +350,7 @@
 
                 <div class="form-group">
                     <label>上传图片（可多选）</label>
-                    <input type="file" class="form-control" id="images" name="images" multiple accept="image/*">
+                    <input type="file" class="form-control" id="images" name="images" multiple accept="image/*" accept-charset="UTF-8">
                     <small class="text-light">可以按住Ctrl键选择多张图片</small>
                     <div class="image-preview" id="imagePreview">
                         <!-- 图片预览将在这里显示 -->
@@ -456,51 +456,51 @@
             });
         }
 
-        // 表单提交
-        document.getElementById('createForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const formData = new FormData();
-
-            // 添加文本字段
-            formData.append('title', document.getElementById('title').value);
-            formData.append('location', document.getElementById('location').value);
-            formData.append('tags', document.getElementById('tags').value);
-            formData.append('category', document.getElementById('category').value);
-            formData.append('season', document.getElementById('season').value);
-            formData.append('priceRange', document.getElementById('priceRange').value);
-            formData.append('content', document.getElementById('content').value);
-
-            // 添加封面图片
-            const coverImage = document.getElementById('coverImage').files[0];
-            if (coverImage) {
-                formData.append('coverImage', coverImage);
-            }
-
-            // 添加所有选择的图片
-            selectedFiles.forEach((file, index) => {
-                formData.append(`images`, file);
-            });
-
-            // 发送请求
-            fetch('/lvshu/createServlet', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('攻略发布成功！');
-                        window.location.href = 'guide-detail.html?id=' + data.guideId;
-                    } else {
-                        alert(data.message || '发布失败，请稍后重试');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('发布失败，请稍后重试');
-                });
-        });
+        // // 表单提交
+        // document.getElementById('createForm').addEventListener('submit', function (e) {
+        //     e.preventDefault();
+        //
+        //     const formData = new FormData();
+        //
+        //     // 添加文本字段
+        //     formData.append('title', document.getElementById('title').value);
+        //     formData.append('location', document.getElementById('location').value);
+        //     formData.append('tags', document.getElementById('tags').value);
+        //     formData.append('category', document.getElementById('category').value);
+        //     formData.append('season', document.getElementById('season').value);
+        //     formData.append('priceRange', document.getElementById('priceRange').value);
+        //     formData.append('content', document.getElementById('content').value);
+        //
+        //     // 添加封面图片
+        //     const coverImage = document.getElementById('coverImage').files[0];
+        //     if (coverImage) {
+        //         formData.append('coverImage', coverImage);
+        //     }
+        //
+        //     // 添加所有选择的图片
+        //     selectedFiles.forEach((file, index) => {
+        //         formData.append(`images`, file);
+        //     });
+        //
+        //     // 发送请求
+        //     fetch('/lvshu/createServlet', {
+        //         method: 'POST',
+        //         body: formData
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.success) {
+        //                 alert('攻略发布成功！');
+        //                 window.location.href = 'guide-detail.html?id=' + data.guideId;
+        //             } else {
+        //                 alert(data.message || '发布失败，请稍后重试');
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error('Error:', error);
+        //             alert('发布失败，请稍后重试');
+        //         });
+        // });
     </script>
 </body>
 
