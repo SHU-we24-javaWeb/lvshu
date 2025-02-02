@@ -26,18 +26,11 @@ public interface UserMapper {
      * 注册时添加用户，只填充用户名和密码，id自增长
      * @param user
      */
-//    @Insert("INSERT INTO user values (null, #{username}, #{password}, null, null, null, null, null, null, null)")
-//    void insertUser(User user);
     @Insert("INSERT INTO user (username, password) VALUES (#{username}, #{password})")
     void insertUser(User user);
 
-    @Select("SELECT * FROM user WHERE user_id = #{userId}")
-    User selectById(Integer userId);
+    User selectById(int userId);
 
-//    @Insert("INSERT INTO user (username, password, gender, date_of_birth, native_place, mobile_phone, email, major, signature, avatar) " +
-//            "VALUES (#{username}, #{password}, #{gender}, #{dateOfBirth}, #{nativePlace}, #{mobilePhone}, #{email}, #{major}, #{signature}, #{avatar})")
-//    @Options(useGeneratedKeys = true, keyProperty = "userId")
-//    int insert(User user);
 
     @Update("UPDATE user SET gender = #{gender}, date_of_birth = #{dateOfBirth}, " +
             "native_place = #{nativePlace}, mobile_phone = #{mobilePhone}, " +

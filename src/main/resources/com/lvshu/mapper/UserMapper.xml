@@ -44,6 +44,12 @@
         values (#{name}, #{sex}, #{dateOfBirth}, #{nativePlace}, #{mobilePhone}, #{deptId}, #{status});
     </insert>
 
+    <select id="selectById" resultType="com.lvshu.pojo.User" resultMap="UserResultMap">
+        SELECT * from user
+        where user_id = #{userId}
+    </select>
+
+
     <!--
        参数占位符：
        #{} ：执行SQL时，会将 #{} 占位符替换为？，将来自动设置参数值。从上述例子可以看出使用#{} 底层使用的是PreparedStatement
