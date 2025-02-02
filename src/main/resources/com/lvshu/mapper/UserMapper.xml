@@ -49,6 +49,10 @@
         where user_id = #{userId}
     </select>
 
+    <select id="selectUserByUsername" resultType="com.lvshu.pojo.User" resultMap="UserResultMap">
+      select * from user where username = #{username}
+    </select>
+
 
     <!--
        参数占位符：
