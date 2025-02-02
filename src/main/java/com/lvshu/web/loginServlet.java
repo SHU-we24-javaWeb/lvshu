@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -54,6 +55,10 @@ public class loginServlet extends HttpServlet {
             writer.write("<script>window.alert(\"登陆成功\");</script>");
             writer.write("<script>window.location.href='home.html';</script>"); // 登录成功后跳转
             writer.write("</body></html>");
+
+            // 存入session
+            HttpSession session = req.getSession();
+            session.setAttribute("user", user); // 存储整个user对象，而不是只存储userId
         } else {
             // 登陆失败，弹出提示框
             writer.write("<html><body>");
