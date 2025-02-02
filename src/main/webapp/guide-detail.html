@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>攻略详情 - 小绿书</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/tooplate-kool-form-pack.css" rel="stylesheet">
+    <style>
+        .menu-buttons {
+            background-color: rgba(44, 44, 44, 0.9);
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .menu-btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            background-color: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover,
+        .menu-btn.active {
+            background-color: #ffffff;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .guide-detail {
+            margin-top: 100px;
+            padding: 40px 0;
+            color: #ffffff;
+        }
+
+        .guide-header {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+
+        .guide-content {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+
+        .guide-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .guide-image {
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .guide-image:hover {
+            transform: scale(1.05);
+        }
+
+        .guide-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .author-details {
+            flex-grow: 1;
+        }
+
+        .author-name {
+            margin: 0;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .author-signature {
+            margin-top: 5px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .publish-time {
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .video-wrap {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .custom-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 视频背景 -->
+    <div class="video-wrap">
+        <video autoplay loop muted class="custom-video">
+            <source src="videos/video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- 菜单栏 -->
+    <div class="menu-buttons">
+        <a href="home.html" class="menu-btn">
+            <i class="bi bi-house-door"></i> 首页
+        </a>
+        <a href="search.html" class="menu-btn active">
+            <i class="bi bi-search"></i> 搜索
+        </a>
+        <a href="create.html" class="menu-btn">
+            <i class="bi bi-fire"></i> 创作
+        </a>
+        <a href="my.html" class="menu-btn">
+            <i class="bi bi-person"></i> 我的
+        </a>
+    </div>
+
+
+    <!-- 攻略详情内容 -->
+    <div class="guide-detail">
+        <div class="container">
+            <div class="guide-header">
+                <h1 id="guideTitle"></h1>
+                <div class="guide-meta">
+                    <span class="meta-item" id="guideLocation">
+                        <i class="bi bi-geo-alt"></i>
+                    </span>
+                    <span class="meta-item" id="guideSeason">
+                        <i class="bi bi-calendar"></i>
+                    </span>
+                    <span class="meta-item" id="guideCategory">
+                        <i class="bi bi-tag"></i>
+                    </span>
+                    <span class="meta-item" id="guidePriceRange">
+                        <i class="bi bi-currency-yen"></i>
+                    </span>
+                </div>
+                <div class="author-info">
+                    <img id="authorAvatar" src="" alt="作者头像" class="author-avatar">
+                    <div class="author-details">
+                        <h5 id="authorName" class="author-name mb-0"></h5>
+                        <small id="publishTime" class="publish-time"></small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guide-content">
+                <div id="guideContent"></div>
+                <div id="guideImages" class="guide-images">
+                    <!-- 图片将在这里动态显示 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const guideId = urlParams.get('id');
+
+            if (guideId) {
+                loadGuideDetails(guideId);
+            }
+        });
+
+        function loadGuideDetails(guideId) {
+            fetch(`/lvshu/guide_details?id=${guideId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const guide = data.guide;
+
+                        // 更新页面内容
+                        document.getElementById('guideTitle').textContent = guide.title;
+                        document.getElementById('guideLocation').innerHTML =
+                            `<i class="bi bi-geo-alt"></i> ${guide.location || ''}`;
+                        document.getElementById('guideSeason').innerHTML =
+                            `<i class="bi bi-calendar"></i> ${guide.season || ''}`;
+                        document.getElementById('guideCategory').innerHTML =
+                            `<i class="bi bi-tag"></i> ${guide.category || ''}`;
+                        document.getElementById('guidePriceRange').innerHTML =
+                            `<i class="bi bi-currency-yen"></i> ${guide.priceRange || ''}`;
+
+                        document.getElementById('guideContent').innerHTML =
+                            formatContent(guide.content);
+
+                        // 处理作者信息
+                        if (guide.author) {
+                            // 处理头像
+                            const defaultAvatar = 'images/default-avatar.jpg';
+                            const avatarUrl = guide.author.avatar ? guide.author.avatar : defaultAvatar;
+                            const finalAvatarUrl = avatarUrl.startsWith('http') ? avatarUrl :
+                                (avatarUrl.startsWith('/') ? '/lvshu' + avatarUrl : '/lvshu/' + avatarUrl);
+                            document.getElementById('authorAvatar').src = finalAvatarUrl;
+
+                            // 处理作者名和签名
+                            document.getElementById('authorName').textContent = guide.author.username;
+                            const signature = guide.author.signature ?
+                                `<small class="text-muted d-block">${guide.author.signature}</small>` : '';
+                            document.getElementById('authorName').insertAdjacentHTML('afterend', signature);
+
+                            // 处理发布时间
+                            const publishDate = guide.createdAt ? new Date(parseInt(guide.createdAt)) : new Date();
+                            document.getElementById('publishTime').textContent = formatDate(publishDate);
+                        } else {
+                            // 如果没有作者信息，显示默认值
+                            document.getElementById('authorAvatar').src = 'images/default-avatar.jpg';
+                            document.getElementById('authorName').textContent = '未知作者';
+                            document.getElementById('publishTime').textContent = '发布时间未知';
+                        }
+
+                        // 处理图片
+                        if (guide.imagePaths) {
+                            const images = guide.imagePaths.split(',');
+                            const imagesHtml = images.map(img =>
+                                `<img src="${img}" class="guide-image" onclick="showImage('${img}')">`
+                            ).join('');
+                            document.getElementById('guideImages').innerHTML = imagesHtml;
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('guideContent').innerHTML =
+                        `<div class="text-center">加载失败：${error.message}</div>`;
+                });
+        }
+
+        function formatContent(content) {
+            if (!content) return '';
+            return content.replace(/\n/g, '<br>');
+        }
+
+        function formatDate(date) {
+            if (!date) return '';
+            const options = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            return new Date(date).toLocaleString('zh-CN', options).replace(/\//g, '-');
+        }
+
+        function showImage(url) {
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+
+</html>
