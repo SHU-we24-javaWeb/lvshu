@@ -158,6 +158,8 @@ public class User {
                 ", major='" + major + '\'' +
                 ", status='" + status + '\'' +
                 ", createdAt=" + createdAt +
+                ", signature='" + signature + '\'' +
+                ", avatar='" + avatar + '\'' +
                 '}';
     }
 }
