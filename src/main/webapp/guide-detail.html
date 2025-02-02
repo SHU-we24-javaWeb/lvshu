@@ -148,6 +148,38 @@
             height: 100%;
             object-fit: cover;
         }
+
+        .guide-actions {
+            display: flex;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .action-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .action-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .action-btn.active {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .action-btn i {
+            font-size: 1.1em;
+        }
     </style>
 </head>
 
@@ -200,6 +232,17 @@
                     <div class="author-details">
                         <h5 id="authorName" class="author-name mb-0"></h5>
                         <small id="publishTime" class="publish-time"></small>
+                    </div>
+                    <div class="guide-actions">
+                        <button id="followBtn" class="action-btn" onclick="toggleFollow()">
+                            <i class="bi bi-person-plus"></i> 关注作者
+                        </button>
+                        <button id="favoriteBtn" class="action-btn" onclick="toggleFavorite()">
+                            <i class="bi bi-heart"></i> 收藏攻略
+                        </button>
+                        <button class="action-btn" onclick="shareGuide()">
+                            <i class="bi bi-share"></i> 分享
+                        </button>
                     </div>
                 </div>
             </div>
@@ -307,6 +350,106 @@
 
         function showImage(url) {
             window.open(url, '_blank');
+        }
+
+        let isFollowing = false;
+        let isFavorited = false;
+
+        function toggleFollow() {
+            const followBtn = document.getElementById('followBtn');
+            const authorId = guide.author.userId; // guide对象在加载详情时已获取
+
+            fetch(`/lvshu/api/user/follow?authorId=${authorId}`, {
+                method: 'POST',
+                credentials: 'include'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        isFollowing = !isFollowing;
+                        followBtn.classList.toggle('active');
+                        followBtn.innerHTML = isFollowing ?
+                            '<i class="bi bi-person-check"></i> 已关注' :
+                            '<i class="bi bi-person-plus"></i> 关注作者';
+                    } else {
+                        alert(data.message || '操作失败，请稍后重试');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('操作失败，请稍后重试');
+                });
+        }
+
+        function toggleFavorite() {
+            const favoriteBtn = document.getElementById('favoriteBtn');
+            const guideId = new URLSearchParams(window.location.search).get('id');
+
+            fetch(`/lvshu/api/guide/favorite?guideId=${guideId}`, {
+                method: 'POST',
+                credentials: 'include'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        isFavorited = !isFavorited;
+                        favoriteBtn.classList.toggle('active');
+                        favoriteBtn.innerHTML = isFavorited ?
+                            '<i class="bi bi-heart-fill"></i> 已收藏' :
+                            '<i class="bi bi-heart"></i> 收藏攻略';
+                    } else {
+                        alert(data.message || '操作失败，请稍后重试');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('操作失败，请稍后重试');
+                });
+        }
+
+        function shareGuide() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('链接已复制到剪贴板');
+            }).catch(err => {
+                console.error('复制失败:', err);
+                alert('复制失败，请手动复制链接');
+            });
+        }
+
+        // 在加载攻略详情时检查关注和收藏状态
+        function checkFollowStatus(authorId) {
+            fetch(`/lvshu/api/user/follow/check?authorId=${authorId}`, {
+                credentials: 'include'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        isFollowing = data.following;
+                        const followBtn = document.getElementById('followBtn');
+                        if (isFollowing) {
+                            followBtn.classList.add('active');
+                            followBtn.innerHTML = '<i class="bi bi-person-check"></i> 已关注';
+                        }
+                    }
+                });
+        }
+
+        function checkFavoriteStatus(guideId) {
+            fetch(`/lvshu/api/guide/favorite/check?guideId=${guideId}`, {
+                credentials: 'include'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        isFavorited = data.favorited;
+                        const favoriteBtn = document.getElementById('favoriteBtn');
+                        if (isFavorited) {
+                            favoriteBtn.classList.add('active');
+                            favoriteBtn.innerHTML = '<i class="bi bi-heart-fill"></i> 已收藏';
+                        }
+                    }
+                });
         }
     </script>
 </body>
