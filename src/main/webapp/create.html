@@ -178,6 +178,76 @@
             height: 100%;
             object-fit: cover;
         }
+
+        .cover-preview {
+            margin-top: 15px;
+            width: 100%;
+            max-width: 300px;
+            aspect-ratio: 16/9;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .cover-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cover-preview .remove-image {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .preview-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-item .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -208,33 +278,80 @@
     <!-- 创作内容区域 -->
     <div class="create-section">
         <div class="container">
-            <form class="create-form" id="createForm">
+            <form class="create-form" id="createForm" action="/lvshu/createServlet" method="post"
+                enctype="multipart/form-data" role="form">
                 <h2 class="mb-4">发布旅游攻略</h2>
 
                 <div class="form-group">
                     <label for="title">标题</label>
-                    <input type="text" class="form-control" id="title" placeholder="给你的攻略起个吸引人的标题">
+                    <input type="text" class="form-control" name="title" id="title" placeholder="给你的攻略起个吸引人的标题" required="">
                 </div>
 
                 <div class="form-group">
-                    <label>分类</label>
-                    <div class="category-tags">
-                        <span class="category-tag active">景点游览</span>
-                        <span class="category-tag">美食攻略</span>
-                        <span class="category-tag">交通住宿</span>
-                        <span class="category-tag">购物推荐</span>
-                        <span class="category-tag">当地体验</span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>位置</label>
+                            <input type="text" class="form-control" name="location" id="location" placeholder="输入旅游地点" required="">
+                        </div>
+                        <div class="col-md-6">
+                            <label>标签</label>
+                            <input type="text" class="form-control" name="tags" id="tags" placeholder="多个标签用逗号分隔" required="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>分类</label>
+                            <select class="form-control" id="category" name="category">
+                                <option value="旅游">旅游</option>
+                                <option value="餐饮">餐饮</option>
+                                <option value="住宿">住宿</option>
+                                <option value="交通">交通</option>
+                                <option value="其他">其他</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>季节</label>
+                            <select class="form-control" id="season" name="season">
+                                <option value="四季">四季</option>
+                                <option value="春">春</option>
+                                <option value="夏">夏</option>
+                                <option value="秋">秋</option>
+                                <option value="冬">冬</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>价格区间</label>
+                            <select class="form-control" id="priceRange" name="priceRange">
+                                <option value="0-500">0-500</option>
+                                <option value="500-1000">500-1000</option>
+                                <option value="1000-2000">1000-2000</option>
+                                <option value="2000-5000">2000-5000</option>
+                                <option value="5000+">5000+</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="content">正文内容</label>
-                    <textarea class="form-control" id="content" rows="10" placeholder="详细描述你的旅行体验、建议和攻略..."></textarea>
+                    <textarea class="form-control" id="content" name="content" rows="10" placeholder="详细描述你的旅行体验、建议和攻略..."></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label>上传图片</label>
-                    <input type="file" class="form-control" id="images" multiple accept="image/*">
+                    <label>上传封面图片</label>
+                    <input type="file" class="form-control" id="coverImage" name="coverImage" accept="image/*">
+                    <div class="cover-preview" id="coverPreview">
+                        <!-- 封面图片预览将在这里显示 -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>上传图片（可多选）</label>
+                    <input type="file" class="form-control" id="images" name="images" multiple accept="image/*">
+                    <small class="text-light">可以按住Ctrl键选择多张图片</small>
                     <div class="image-preview" id="imagePreview">
                         <!-- 图片预览将在这里显示 -->
                     </div>
@@ -258,19 +375,52 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script>
-        // 图片预览功能
-        document.getElementById('images').addEventListener('change', function (e) {
-            const preview = document.getElementById('imagePreview');
+        // 封面图片预览
+        document.getElementById('coverImage').addEventListener('change', function (e) {
+            const preview = document.getElementById('coverPreview');
             preview.innerHTML = '';
 
-            [...e.target.files].forEach(file => {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.innerHTML = `
+                        <img src="${e.target.result}" alt="封面预览">
+                        <button type="button" class="remove-image" onclick="removeCover()">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    `;
+                }
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        function removeCover() {
+            document.getElementById('coverImage').value = '';
+            document.getElementById('coverPreview').innerHTML = '';
+        }
+
+        // 存储已选择的图片文件
+        let selectedFiles = [];
+
+        // 多图片预览
+        document.getElementById('images').addEventListener('change', function (e) {
+            const preview = document.getElementById('imagePreview');
+            const files = e.target.files;
+
+            // 将新选择的文件添加到已选择文件列表
+            selectedFiles = selectedFiles.concat(Array.from(files));
+
+            // 清空预览区域，重新显示所有图片
+            preview.innerHTML = '';
+
+            selectedFiles.forEach((file, index) => {
                 const reader = new FileReader();
                 reader.onload = function (e) {
                     const div = document.createElement('div');
                     div.className = 'preview-item';
                     div.innerHTML = `
                         <img src="${e.target.result}" alt="预览图片">
-                        <button type="button" class="remove-image" onclick="this.parentElement.remove()">
+                        <button type="button" class="remove-image" onclick="removeImage(${index})">
                             <i class="bi bi-x"></i>
                         </button>
                     `;
@@ -280,19 +430,76 @@
             });
         });
 
-        // 分类标签切换
-        document.querySelectorAll('.category-tag').forEach(tag => {
-            tag.addEventListener('click', function () {
-                document.querySelectorAll('.category-tag').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
+        // 修改删除图片的函数
+        function removeImage(index) {
+            // 从数组中移除对应索引的文件
+            selectedFiles.splice(index, 1);
+
+            // 重新渲染预览
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = '';
+
+            selectedFiles.forEach((file, idx) => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const div = document.createElement('div');
+                    div.className = 'preview-item';
+                    div.innerHTML = `
+                        <img src="${e.target.result}" alt="预览图片">
+                        <button type="button" class="remove-image" onclick="removeImage(${idx})">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    `;
+                    preview.appendChild(div);
+                }
+                reader.readAsDataURL(file);
             });
-        });
+        }
 
         // 表单提交
         document.getElementById('createForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            // 这里添加表单提交逻辑
-            alert('攻略发布成功！');
+
+            const formData = new FormData();
+
+            // 添加文本字段
+            formData.append('title', document.getElementById('title').value);
+            formData.append('location', document.getElementById('location').value);
+            formData.append('tags', document.getElementById('tags').value);
+            formData.append('category', document.getElementById('category').value);
+            formData.append('season', document.getElementById('season').value);
+            formData.append('priceRange', document.getElementById('priceRange').value);
+            formData.append('content', document.getElementById('content').value);
+
+            // 添加封面图片
+            const coverImage = document.getElementById('coverImage').files[0];
+            if (coverImage) {
+                formData.append('coverImage', coverImage);
+            }
+
+            // 添加所有选择的图片
+            selectedFiles.forEach((file, index) => {
+                formData.append(`images`, file);
+            });
+
+            // 发送请求
+            fetch('/lvshu/createServlet', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('攻略发布成功！');
+                        window.location.href = 'guide-detail.html?id=' + data.guideId;
+                    } else {
+                        alert(data.message || '发布失败，请稍后重试');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('发布失败，请稍后重试');
+                });
         });
     </script>
 </body>
