@@ -16,7 +16,7 @@
     <style>
         .menu-buttons {
             background-color: rgba(44, 44, 44, 0.9);
-            padding: 20px 0;
+            padding: 10px 0; /* ysy */
             position: fixed;
             top: 0;
             width: 100%;
@@ -78,6 +78,12 @@
             color: #ffffff;
             backdrop-filter: blur(10px);
             transition: transform 0.3s;
+            /* ysyadd */
+            display: flex;
+            flex-direction: column;  /* 让内容竖直排列 */
+            justify-content: space-between; /* 垂直方向对齐 */
+            height: 100%; /* 确保每个卡片都有相同的高度 */
+            /* ysyend */
         }
 
         .thumbnail:hover {
@@ -87,6 +93,11 @@
         .thumbnail img {
             border-radius: 15px;
             margin-bottom: 20px;
+             /* ysyadd */
+            width: 100%;  /* 确保图片宽度填满容器 */
+            height: 200px;  /* 固定图片的高度 */
+            object-fit: cover;  /* 确保图片尺寸不失真 */
+            /* ysyend */
         }
 
         .thumbnail h3 {
@@ -104,6 +115,7 @@
 
         .thumbnail .caption {
             color: #ffffff;
+            margin-top: auto; /* 使按钮固定在卡片底部  ysyadd */
         }
 
         .btn-primary {
@@ -139,10 +151,11 @@
         footer {
             background-color: rgba(44, 44, 44, 0.9);
             color: #ffffff;
-            padding: 20px 0;
+            padding: 10px 0;
             position: fixed;
             bottom: 0;
             width: 100%;
+            text-align: center; /* 居中对齐文本 */
         }
     </style>
 </head>
