@@ -45,7 +45,7 @@ public interface GuideMapper {
                         @Result(property = "priceRange", column = "price_range"),
                         @Result(property = "author", column = "author_id", one = @One(select = "com.lvshu.mapper.UserMapper.selectById"))
         })
-        Guide selectById(Integer guideId);
+        Guide selectById(int guideId);
 
         /**
          * 查询用户的所有攻略
@@ -53,15 +53,6 @@ public interface GuideMapper {
         @Select("SELECT * FROM guide WHERE author_id = #{authorId}")
         List<Guide> selectByAuthorId(Integer authorId);
 
-        // /**
-        // * 搜索攻略
-        // */
-        // @Select("SELECT * FROM guide WHERE status = 'published' AND " +
-        // "(title LIKE CONCAT('%',#{keyword},'%') OR " +
-        // "content LIKE CONCAT('%',#{keyword},'%') OR " +
-        // "location LIKE CONCAT('%',#{keyword},'%') OR " +
-        // "tags LIKE CONCAT('%',#{keyword},'%'))")
-        // List<Guide> search(String keyword);
 
         /**
          * 综合搜索攻略
@@ -101,7 +92,7 @@ public interface GuideMapper {
          * 增加浏览次数
          */
         @Update("UPDATE guide SET view_count = view_count + 1 WHERE guide_id = #{guideId}")
-        int incrementViewCount(Integer guideId);
+        int incrementViewCount(int guideId);
 
         /**
          * 更新攻略状态
