@@ -1,5 +1,6 @@
 package com.lvshu.web;
 
+import com.lvshu.mapper.GuideMapper;
 import com.lvshu.mapper.UserMapper;
 import com.lvshu.pojo.Guide;
 import com.lvshu.pojo.User;
@@ -72,7 +73,7 @@ public class createServlet extends HttpServlet {
             coverImagePart.write(savePath + File.separator + coverImage);
 
             // 将封面图的相对路径保存到 coverPaths
-            coverPaths = "/images/" + coverImage; // 使用相对路径
+            coverPaths = "images/" + coverImage; // 使用相对路径
         }
 
 
@@ -94,7 +95,7 @@ public class createServlet extends HttpServlet {
             imagePart.write(savePath + File.separator + fileName);
 
             // 将相对路径添加到 imageNames 中
-            imageNames.set(imageNames.size() - 1, "/images/" + fileName);  // 更新最后一个路径为相对路径
+            imageNames.set(imageNames.size() - 1, "images/" + fileName);  // 更新最后一个路径为相对路径
         }
 
         // 将多张图片的路径以逗号分隔开
@@ -126,31 +127,37 @@ public class createServlet extends HttpServlet {
         guide.setImagePaths(imagesPaths);
         guide.setCoverImage(coverPaths);
         guide.setAuthorId(user.getUserId());
+        guide.setStatus("published");
 
         //打印信息
         System.out.println(guide);
 
+        // 调用guide的mapper方法插入
+        GuideMapper guideMapper = sqlSession.getMapper(GuideMapper.class);
+        int count = guideMapper.insert(guide);
 
+        // 提交事务
+        sqlSession.commit();
 
         // 获取字符输出流,并设置content type
         resp.setContentType("text/html;charset=utf-8");
         PrintWriter writer = resp.getWriter();
 
-//        // 3.判断是否成功
-//        if (user != null) {
-//            // 登陆成功，跳转到主页或其他页面
-//            writer.write("<html><body>");
-//            writer.write("<h1>登录成功！</h1>");
-//            writer.write("<script>window.alert(\"登陆成功\");</script>");
-//            writer.write("<script>window.location.href='home.html';</script>"); // 登录成功后跳转
-//            writer.write("</body></html>");
-//        } else {
-//            // 登陆失败，弹出提示框
-//            writer.write("<html><body>");
-//            writer.write("<h1>登录失败！</h1>");
-//            writer.write("<script>alert('用户名或密码错误！'); window.history.back();</script>"); // 弹窗并返回上一步
-//            writer.write("</body></html>");
-//        }
+        // 3.判断是否成功
+        if (count > 0) {
+            // 登陆成功，跳转到主页或其他页面
+            writer.write("<html><body>");
+            writer.write("<h1>发布成功！</h1>");
+            writer.write("<script>window.alert(\"发布成功\");</script>");
+            writer.write("<script>window.location.href='home.html';</script>"); // 发布成功后跳转
+            writer.write("</body></html>");
+        } else {
+            // 登陆失败，弹出提示框
+            writer.write("<html><body>");
+            writer.write("<h1>发布失败！</h1>");
+            writer.write("<script>alert('发布失败！'); window.history.back();</script>"); // 弹窗并返回上一步
+            writer.write("</body></html>");
+        }
 
         // 2.5 释放资源
         sqlSession.close();
