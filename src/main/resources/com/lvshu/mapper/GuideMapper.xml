@@ -50,4 +50,8 @@
         </where>
         ORDER BY created_at DESC
     </select>
+
+    <select id="selectByAuthorId" resultMap="guideResultMap">
+        SELECT * FROM guide WHERE author_id = #{authorId}
+    </select>
 </mapper> 

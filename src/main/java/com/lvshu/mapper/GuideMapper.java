@@ -50,7 +50,6 @@ public interface GuideMapper {
         /**
          * 查询用户的所有攻略
          */
-        @Select("SELECT * FROM guide WHERE author_id = #{authorId}")
         List<Guide> selectByAuthorId(Integer authorId);
 
 
