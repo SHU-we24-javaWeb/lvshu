@@ -557,8 +557,8 @@
                         const myGuidesContainer = document.getElementById('myGuides');
                         myGuidesContainer.innerHTML = data.data.guides.map(guide => `
                             <div class="collection-card">
-                                <img src="${guide.coverImage || 'images/default-cover.jpg'}" 
-                                     alt="${escapeHtml(guide.title)}" 
+                                <img src="${guide.coverImage || 'images/default-cover.jpg'}"
+                                     alt="${escapeHtml(guide.title)}"
                                      class="collection-image">
                                 <div class="collection-content">
                                     <h3>${escapeHtml(guide.title)}</h3>
@@ -567,10 +567,14 @@
                                         <span><i class="bi bi-eye"></i> ${guide.viewCount}</span>
                                         <span><i class="bi bi-heart"></i> ${guide.favoriteCount}</span>
                                         <div class="action-buttons">
-                                            <button onclick="editGuide(${guide.guideId})" class="btn btn-sm btn-light">
+                                             <a href="guide-detail.html?id=${guide.guideId}"
+                                                class="edit-btn">
+                                                查看详情
+                                            </a>
+                                            <button onclick="editGuide(${guide.guideId})" class="edit-btn">
                                                 <i class="bi bi-pencil"></i> 编辑
                                             </button>
-                                            <button onclick="deleteGuide(${guide.guideId})" class="btn btn-sm btn-danger">
+                                            <button onclick="deleteGuide(${guide.guideId})" class="edit-btn">
                                                 <i class="bi bi-trash"></i> 删除
                                             </button>
                                         </div>
@@ -583,8 +587,8 @@
                         const myFavoritesContainer = document.getElementById('myFavorites');
                         myFavoritesContainer.innerHTML = data.data.favorites.map(guide => `
                             <div class="collection-card">
-                                <img src="${guide.coverImage || 'images/default-cover.jpg'}" 
-                                     alt="${escapeHtml(guide.title)}" 
+                                <img src="${guide.coverImage || 'images/default-cover.jpg'}"
+                                     alt="${escapeHtml(guide.title)}"
                                      class="collection-image">
                                 <div class="collection-content">
                                     <h3>${escapeHtml(guide.title)}</h3>
@@ -592,8 +596,8 @@
                                     <div class="collection-meta">
                                         <span><i class="bi bi-eye"></i> ${guide.viewCount}</span>
                                         <span><i class="bi bi-heart"></i> ${guide.favoriteCount}</span>
-                                        <a href="guide-detail.html?id=${guide.guideId}" 
-                                           class="btn btn-sm btn-light">
+                                        <a href="guide-detail.html?id=${guide.guideId}"
+                                           class="edit-btn">
                                             查看详情
                                         </a>
                                     </div>
