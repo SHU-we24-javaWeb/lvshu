@@ -73,14 +73,28 @@ public class FollowServlet extends HttpServlet {
         // 获取作者id
         int authorId = guide.getAuthorId();
 
+        // 获取字符输出流,并设置content type
+        resp.setContentType("text/html;charset=utf-8");
+        PrintWriter writer = resp.getWriter();
+
+        if(authorId == userId){
+            // 不能自己关注自己
+            writer.write("<html><body>");
+            writer.write("<h1>关注失败,不能关注自己！</h1>");
+            writer.write("<script>window.alert('关注失败,不能关注自己');</script>");
+            writer.write("<script>window.history.back();</script>");
+            writer.write("</body></html>");
+            // 释放资源
+            sqlSession.close();
+            return;
+        }
+
         // 封装数据
         UserFollow userFollow = new UserFollow();
         userFollow.setFollowerId(userId);
         userFollow.setFollowedId(authorId);
 
-        // 获取字符输出流,并设置content type
-        resp.setContentType("text/html;charset=utf-8");
-        PrintWriter writer = resp.getWriter();
+
         if (!userFollowMapper.isFollowing(userId, authorId)) {
             // 没有收藏过
             // 插入收藏信息
