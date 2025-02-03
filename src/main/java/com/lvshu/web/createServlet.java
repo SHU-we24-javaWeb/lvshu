@@ -54,7 +54,7 @@ public class createServlet extends HttpServlet {
         String price_range = req.getParameter("priceRange");
         String content = req.getParameter("content");
 
-        // TODO 我没有解决图片里带中文名字的问题 虽然可以存 但是没有试过可以用嘛
+        // TODO 我没有解决图片里带中文名字的问题 虽然可以存 但是带问号
 
         // 处理封面图
         Part coverImagePart = req.getPart("coverImage");
