@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编辑个人资料 - 小绿书</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 60px;
+        }
+
+        /* 继承基础样式 */
+        .menu-buttons {
+            background-color: rgba(44, 44, 44, 0.9);
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .menu-btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            background-color: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover,
+        .menu-btn.active {
+            background-color: #ffffff;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .edit-profile-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .avatar-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .avatar-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-label {
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            border-radius: 8px;
+        }
+
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            box-shadow: none;
+        }
+
+        .btn-save {
+            background-color: rgba(40, 167, 69, 0.8);
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-save:hover {
+            background-color: rgba(40, 167, 69, 1);
+            transform: translateY(-2px);
+        }
+
+        .btn-cancel {
+            background-color: rgba(108, 117, 125, 0.8);
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background-color: rgba(108, 117, 125, 1);
+            transform: translateY(-2px);
+        }
+
+        .video-wrap {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .custom-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        footer {
+            background-color: rgba(44, 44, 44, 0.9);
+            color: #ffffff;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 视频背景 -->
+    <div class="video-wrap">
+        <video autoplay loop muted class="custom-video">
+            <source src="videos/video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- 菜单栏 -->
+    <div class="menu-buttons">
+        <a href="home.html" class="menu-btn">
+            <i class="bi bi-house-door"></i> 首页
+        </a>
+        <a href="search.html" class="menu-btn">
+            <i class="bi bi-search"></i> 搜索
+        </a>
+        <a href="create.html" class="menu-btn">
+            <i class="bi bi-fire"></i> 创作
+        </a>
+        <a href="my.html" class="menu-btn active">
+            <i class="bi bi-person"></i> 我的
+        </a>
+    </div>
+
+<!--    空开一点距离-->
+    <br><br>
+    <br><br>
+    <div class="container">
+        <div class="edit-profile-container">
+            <h2 class="text-center mb-4">编辑个人资料</h2>
+            <form id="editProfileForm" enctype="multipart/form-data" action="/lvshu/updateUserServlet" method="post">
+                <div class="avatar-section">
+                    <img id="avatarPreview" class="avatar-preview" src="images/default-avatar.jpg" alt="头像预览">
+                    <div class="mb-3">
+                        <input type="file" class="form-control" id="avatarInput" name="avatar" accept="image/*">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">用户名</label>
+                            <input type="text" class="form-control" id="username" name="username" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">性别</label>
+                            <select class="form-control" id="gender" name="gender">
+                                <option value="M">男</option>
+                                <option value="F">女</option>
+                                <option value="O">其他</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">生日</label>
+                            <input type="date" id="dataOfBirth" name="dataOfBirth">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">邮箱</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="mobilePhone" class="form-label">手机号码</label>
+                            <input type="tel" class="form-control" id="mobilePhone" name="mobilePhone">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="major" class="form-label">专业</label>
+                            <input type="text" class="form-control" id="major" name="major">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="nativePlace" class="form-label">籍贯</label>
+                            <input type="text" class="form-control" id="nativePlace" name="nativePlace">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="signature" class="form-label">个性签名</label>
+                    <textarea class="form-control" id="signature" name="signature" rows="3"></textarea>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-save">保存修改</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-cancel"
+                            onclick="window.location.href='my.html'">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p class="text-center mb-0">© 2025 小绿书--小旅SHU旅游交流平台 版权所有</p>
+        </div>
+    </footer>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 页面加载时获取用户信息
+        document.addEventListener('DOMContentLoaded', function () {
+            loadUserProfile();
+        });
+
+        // 加载用户信息
+        function loadUserProfile() {
+            fetch('/lvshu/profileServlet')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const user = data.data.user;
+                        // 填充表单
+                        document.getElementById('username').value = user.username || '';
+                        document.getElementById('gender').value = user.gender || 'O';
+                        document.getElementById('email').value = user.email || '';
+                        document.getElementById('mobilePhone').value = user.mobilePhone || '';
+                        document.getElementById('major').value = user.major || '';
+                        document.getElementById('nativePlace').value = user.nativePlace || '';
+                        document.getElementById('signature').value = user.signature || '';
+
+                        // 设置头像预览
+                        if (user.avatar) {
+                            document.getElementById('avatarPreview').src = user.avatar;
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('加载用户信息失败，请稍后重试');
+                });
+        }
+
+        // 头像预览
+        document.getElementById('avatarInput').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // // 表单提交
+        // document.getElementById('editProfileForm').addEventListener('submit', function (e) {
+        //     e.preventDefault();
+        //
+        //     const formData = new FormData(this);
+        //
+        //     fetch('/lvshu/updateProfileServlet', {
+        //         method: 'POST',
+        //         body: formData
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.success) {
+        //                 alert('个人资料更新成功！');
+        //                 window.location.href = 'my.html';
+        //             } else {
+        //                 alert('更新失败：' + data.message);
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error('Error:', error);
+        //             alert('更新失败，请稍后重试');
+        //         });
+        // });
+    </script>
+</body>
+
+</html>
