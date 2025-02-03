@@ -234,12 +234,19 @@
                         <small id="publishTime" class="publish-time"></small>
                     </div>
                     <div class="guide-actions">
-                        <button id="followBtn" class="action-btn" onclick="toggleFollow()">
-                            <i class="bi bi-person-plus"></i> 关注作者
-                        </button>
-                        <button id="favoriteBtn" class="action-btn" onclick="toggleFavorite()">
-                            <i class="bi bi-heart"></i> 收藏攻略
-                        </button>
+                        <form action="/lvshu/followServlet" method="post">
+                            <button type="submit" id="followBtn" class="action-btn">
+                                <i class="bi bi-person-plus"></i> 关注作者
+                            </button>
+                        </form>
+
+                        <form action="/lvshu/favoriteServlet" method="post">
+                            <input type="hidden" name="guideId" value="">
+                            <button type="submit" id="favoriteBtn" class="action-btn">
+                                <i class="bi bi-heart"></i> 收藏攻略
+                            </button>
+                        </form>
+
                         <button class="action-btn" onclick="shareGuide()">
                             <i class="bi bi-share"></i> 分享
                         </button>
@@ -322,6 +329,14 @@
                             ).join('');
                             document.getElementById('guideImages').innerHTML = imagesHtml;
                         }
+
+                        // 更新表单的action和隐藏字段
+                        const followForm = document.querySelector('form[action^="/lvshu/followServlet"]');
+                        followForm.action = `/lvshu/followServlet?id=${guide.guideId}`;
+
+                        const favoriteForm = document.querySelector('form[action^="/lvshu/favoriteServlet"]');
+                        favoriteForm.action = `/lvshu/favoriteServlet?id=${guide.guideId}`;
+                        favoriteForm.querySelector('input[name="guideId"]').value = guide.guideId;
                     }
                 })
                 .catch(error => {
