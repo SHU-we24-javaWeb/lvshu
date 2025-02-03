@@ -202,6 +202,78 @@
             height: 100%;
             object-fit: cover;
         }
+
+        .content-section {
+            margin-top: 30px;
+        }
+
+        .section-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            height: 100%;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        /* 自定义滚动条样式 */
+        .collection-grid::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .collection-grid::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .collection-grid::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        .collection-grid::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .collection-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .collection-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .collection-content {
+            padding: 15px;
+        }
+
+        .collection-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
     </style>
 </head>
 
@@ -235,21 +307,21 @@
             <!-- 个人信息卡片 -->
             <div class="profile-card">
                 <div class="profile-header">
-                    <img src="https://via.placeholder.com/120" alt="用户头像" class="profile-avatar">
+                    <img id="userAvatar" src="images/default-avatar.jpg" alt="用户头像" class="profile-avatar">
                     <div class="profile-info">
-                        <h2>用户昵称</h2>
-                        <p>个性签名：热爱旅行，记录生活的点点滴滴</p>
+                        <h2 id="username">用户昵称</h2>
+                        <p id="userSignature">个性签名：热爱旅行，记录生活的点点滴滴</p>
                         <div class="profile-stats">
                             <div class="stat-item">
-                                <div class="stat-value">42</div>
+                                <div class="stat-value" id="favoriteCount">42</div>
                                 <div class="stat-label">收藏</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-value">128</div>
+                                <div class="stat-value" id="followersCount">128</div>
                                 <div class="stat-label">关注</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-value">256</div>
+                                <div class="stat-value" id="followingCount">256</div>
                                 <div class="stat-label">粉丝</div>
                             </div>
                         </div>
@@ -260,79 +332,30 @@
                 </div>
             </div>
 
-            <!-- 内容标签页 -->
-            <div class="tab-buttons">
-                <button class="tab-btn active">我的收藏</button>
-                <button class="tab-btn">我的攻略</button>
-            </div>
-
-            <!-- 修改内容标签页部分 -->
-            <div class="tab-content mt-4">
-                <!-- 我的收藏 -->
-                <div class="tab-pane fade show active" id="collections">
-                    <div class="collection-grid">
-                        <!-- 收藏项目1 -->
-                        <div class="collection-card">
-                            <img src="https://img.zcool.cn/community/031rqdfipqluron1tur9uls3935.png" alt="北京故宫"
-                                class="collection-image">
-                            <div class="collection-content">
-                                <h3>北京故宫一日游完全攻略</h3>
-                                <p>详细介绍故宫参观路线、购票信息、最佳拍照点位等实用信息。</p>
-                                <div class="collection-meta">
-                                    <span><i class="bi bi-heart-fill"></i> 收藏于 2024-01-15</span>
-                                    <a href="#" class="text-white">查看详情</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 收藏项目2 -->
-                        <div class="collection-card">
-                            <img src="https://th.bing.com/th/id/R.3cf01ec05f272a9e9dd166b76534fcac?rik=ugRSZ%2fSeMYjFmA&pid=ImgRaw&r=0"
-                                alt="上海外滩" class="collection-image">
-                            <div class="collection-content">
-                                <h3>上海外滩夜景打卡攻略</h3>
-                                <p>最佳观景位置、拍照技巧、周边美食推荐等详细信息。</p>
-                                <div class="collection-meta">
-                                    <span><i class="bi bi-heart-fill"></i> 收藏于 2024-01-14</span>
-                                    <a href="#" class="text-white">查看详情</a>
-                                </div>
+            <!-- 修改内容部分的布局 -->
+            <div class="content-section mt-4">
+                <div class="row">
+                    <!-- 我的收藏 -->
+                    <div class="col-md-6">
+                        <div class="section-card">
+                            <h3 class="text-white mb-4">我的收藏</h3>
+                            <div class="collection-grid" id="myFavorites">
+                                <!-- 收藏内容将通过JavaScript动态加载 -->
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 我的攻略 -->
-                <div class="tab-pane fade" id="my-guides">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h3 class="text-white mb-0">我发布的攻略</h3>
-                        <a href="create.html" class="btn btn-primary">
-                            <i class="bi bi-plus-lg"></i> 发布新攻略
-                        </a>
-                    </div>
-                    <div class="collection-grid">
-                        <!-- 示例攻略卡片 -->
-                        <div class="collection-card">
-                            <img src="path_to_image" alt="攻略图片" class="collection-image">
-                            <div class="collection-content">
-                                <div class="d-flex justify-content-between">
-                                    <h3>上海三日游记</h3>
-                                    <div class="dropdown">
-                                        <button class="btn btn-link text-white" type="button" data-toggle="dropdown">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#" onclick="editGuide(1)">编辑</a>
-                                            <a class="dropdown-item text-danger" href="#"
-                                                onclick="deleteGuide(1)">删除</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p>发布于：2024-01-15</p>
-                                <div class="guide-stats">
-                                    <span><i class="bi bi-eye"></i> 1.2k</span>
-                                    <span><i class="bi bi-heart"></i> 89</span>
-                                    <span><i class="bi bi-chat"></i> 23</span>
-                                </div>
+                    <!-- 我的攻略 -->
+                    <div class="col-md-6">
+                        <div class="section-card">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h3 class="text-white mb-0">我的攻略</h3>
+                                <a href="create.html" class="edit-btn">
+                                    <i class="bi bi-pencil"></i> 发布新攻略
+                                </a>
+                            </div>
+                            <div class="collection-grid" id="myGuides">
+                                <!-- 攻略内容将通过JavaScript动态加载 -->
                             </div>
                         </div>
                     </div>
@@ -453,31 +476,31 @@
             }
         });
 
-        // 更新个人资料
-        function updateProfile() {
-            const formData = new FormData(document.getElementById('editProfileForm'));
-
-            // 这里添加向后端发送数据的逻辑
-            fetch('/api/user/update-profile', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('个人资料更新成功！');
-                        $('#editProfileModal').modal('hide');
-                        // 刷新页面或更新显示
-                        location.reload();
-                    } else {
-                        alert('更新失败：' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('更新失败，请稍后重试');
-                });
-        }
+        // // 更新个人资料
+        // function updateProfile() {
+        //     const formData = new FormData(document.getElementById('editProfileForm'));
+        //
+        //     // 这里添加向后端发送数据的逻辑
+        //     fetch('/api/user/update-profile', {
+        //         method: 'POST',
+        //         body: formData
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.success) {
+        //                 alert('个人资料更新成功！');
+        //                 $('#editProfileModal').modal('hide');
+        //                 // 刷新页面或更新显示
+        //                 location.reload();
+        //             } else {
+        //                 alert('更新失败：' + data.message);
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error('Error:', error);
+        //             alert('更新失败，请稍后重试');
+        //         });
+        // }
 
         // 编辑攻略
         function editGuide(guideId) {
@@ -506,6 +529,95 @@
                         alert('删除失败，请稍后重试');
                     });
             }
+        }
+
+        // 在页面加载完成后获取用户数据
+        document.addEventListener('DOMContentLoaded', function () {
+            loadUserProfile();
+        });
+
+        function loadUserProfile() {
+            fetch('/lvshu/profileServlet')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // 更新用户基本信息
+                        const user = data.data.user;
+                        document.getElementById('username').textContent = user.username;
+                        document.getElementById('userAvatar').src = user.avatar || 'images/default-avatar.jpg';
+                        document.getElementById('userSignature').textContent = user.signature || '这个人很懒，什么都没写~';
+
+                        // 更新统计数据
+                        const stats = data.data.stats;
+                        document.getElementById('favoriteCount').textContent = stats.favoriteCount;
+                        document.getElementById('followersCount').textContent = stats.followersCount;
+                        document.getElementById('followingCount').textContent = stats.followingCount;
+
+                        // 更新我的攻略列表
+                        const myGuidesContainer = document.getElementById('myGuides');
+                        myGuidesContainer.innerHTML = data.data.guides.map(guide => `
+                            <div class="collection-card">
+                                <img src="${guide.coverImage || 'images/default-cover.jpg'}" 
+                                     alt="${escapeHtml(guide.title)}" 
+                                     class="collection-image">
+                                <div class="collection-content">
+                                    <h3>${escapeHtml(guide.title)}</h3>
+                                    <p>${escapeHtml(guide.content.substring(0, 100))}...</p>
+                                    <div class="collection-meta">
+                                        <span><i class="bi bi-eye"></i> ${guide.viewCount}</span>
+                                        <span><i class="bi bi-heart"></i> ${guide.favoriteCount}</span>
+                                        <div class="action-buttons">
+                                            <button onclick="editGuide(${guide.guideId})" class="btn btn-sm btn-light">
+                                                <i class="bi bi-pencil"></i> 编辑
+                                            </button>
+                                            <button onclick="deleteGuide(${guide.guideId})" class="btn btn-sm btn-danger">
+                                                <i class="bi bi-trash"></i> 删除
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+
+                        // 更新我的收藏列表
+                        const myFavoritesContainer = document.getElementById('myFavorites');
+                        myFavoritesContainer.innerHTML = data.data.favorites.map(guide => `
+                            <div class="collection-card">
+                                <img src="${guide.coverImage || 'images/default-cover.jpg'}" 
+                                     alt="${escapeHtml(guide.title)}" 
+                                     class="collection-image">
+                                <div class="collection-content">
+                                    <h3>${escapeHtml(guide.title)}</h3>
+                                    <p>${escapeHtml(guide.content.substring(0, 100))}...</p>
+                                    <div class="collection-meta">
+                                        <span><i class="bi bi-eye"></i> ${guide.viewCount}</span>
+                                        <span><i class="bi bi-heart"></i> ${guide.favoriteCount}</span>
+                                        <a href="guide-detail.html?id=${guide.guideId}" 
+                                           class="btn btn-sm btn-light">
+                                            查看详情
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                    } else {
+                        alert('加载用户信息失败：' + (data.message || '未知错误'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('加载用户信息失败，请稍后重试');
+                });
+        }
+
+        // 辅助函数：HTML转义
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
     </script>
 </body>
