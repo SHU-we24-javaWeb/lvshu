@@ -44,6 +44,18 @@
         values (#{name}, #{sex}, #{dateOfBirth}, #{nativePlace}, #{mobilePhone}, #{deptId}, #{status});
     </insert>
 
+    <update id="update" parameterType="com.lvshu.pojo.User">
+        UPDATE user SET gender = #{gender},
+                        date_of_birth = #{dateOfBirth},
+                        native_place = #{nativePlace},
+                        mobile_phone = #{mobilePhone},
+                        email = #{email},
+                        major = #{major},
+                        signature = #{signature},
+                        avatar = #{avatar}
+            WHERE user_id = #{userId}
+    </update>
+
     <select id="selectById" resultType="com.lvshu.pojo.User" resultMap="UserResultMap">
         SELECT * from user
         where user_id = #{userId}

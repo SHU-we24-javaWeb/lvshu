@@ -30,11 +30,11 @@ public interface UserMapper {
 
     User selectById(int userId);
 
-
-    @Update("UPDATE user SET gender = #{gender}, date_of_birth = #{dateOfBirth}, " +
-            "native_place = #{nativePlace}, mobile_phone = #{mobilePhone}, " +
-            "email = #{email}, major = #{major}, signature = #{signature}, " +
-            "avatar = #{avatar} WHERE user_id = #{userId}")
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
     int update(User user);
 
     @Update("UPDATE user SET password = #{newPassword} WHERE user_id = #{userId}")
