@@ -106,7 +106,7 @@ public class UpdateUserServlet  extends HttpServlet {
 
         // 处理头像图
         Part avatarImagePart = req.getPart("avatar");
-        if (avatarImagePart != null) {
+        if (avatarImagePart != null  && avatarImagePart.getSize() > 0) {
             // 图片没传才不更新
             // 文件名
             String avatarImage = "";
@@ -127,6 +127,9 @@ public class UpdateUserServlet  extends HttpServlet {
                 avatarPaths = "images/" + avatarImage; // 使用相对路径
             }
             newUser.setAvatar(avatarPaths);
+        } else {
+            // 没传头像就用以前的
+            newUser.setAvatar(user.getAvatar());
         }
 
 
