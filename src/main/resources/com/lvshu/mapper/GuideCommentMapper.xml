@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lvshu.mapper.GuideCommentMapper">
+    <resultMap id="guideResultMap" type="com.lvshu.pojo.GuideComment">
+        <id property="commentId" column="comment_id"/>
+        <result property="guideId" column="guide_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="createdAt" column="created_at"/>
+        <association property="user" column="user_id"
+                     select="com.lvshu.mapper.UserMapper.selectById"/>
+        <association property="guide" column="guide_id"
+                     select="com.lvshu.mapper.GuideMapper.selectById"/>
+    </resultMap>
+
+    <select id="selectByGuideId" resultType="com.lvshu.pojo.GuideComment" resultMap="guideResultMap">
+        select * from guide_comments where guide_id = #{guideId};
+    </select>
+
+
+</mapper>

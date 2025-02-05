@@ -10,24 +10,14 @@ public interface GuideCommentMapper {
     /**
      * 添加评论
      */
-    @Insert("INSERT INTO guide_comments (guide_id, user_id, comment) " +
-            "VALUES (#{guideId}, #{userId}, #{comment})")
+    @Insert("INSERT INTO guide_comments (guide_id, user_id, comment, status) " +
+            "VALUES (#{guideId}, #{userId}, #{comment}, #{status})")
     @Options(useGeneratedKeys = true, keyProperty = "commentId")
     int insert(GuideComment comment);
 
     /**
      * 查询攻略的所有评论
      */
-    @Select("SELECT * FROM guide_comments WHERE guide_id = #{guideId} AND status = 'active' " +
-            "ORDER BY created_at DESC")
-    @Results({
-            @Result(property = "commentId", column = "comment_id"),
-            @Result(property = "guideId", column = "guide_id"),
-            @Result(property = "userId", column = "user_id"),
-            @Result(property = "createdAt", column = "created_at"),
-            @Result(property = "user", column = "user_id", one = @One(select = "com.lvshu.mapper.UserMapper.selectById")),
-            @Result(property = "guide", column = "guide_id", one = @One(select = "com.lvshu.mapper.GuideMapper.selectById"))
-    })
     List<GuideComment> selectByGuideId(Integer guideId);
 
     /**
