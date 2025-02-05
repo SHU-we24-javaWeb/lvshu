@@ -11,5 +11,5 @@ VALUES (
            '计算机科学技术',
            'active',
            '热爱睡觉，梦想是早点退休',
-           'src/main/webapp/images/pig.png'  -- 头像的 URL
+           'images/pig.png'  -- 头像的 URL
        );
