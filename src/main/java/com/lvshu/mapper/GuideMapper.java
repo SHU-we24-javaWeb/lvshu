@@ -27,6 +27,14 @@ public interface GuideMapper {
         int update(Guide guide);
 
         /**
+         * 删除攻略
+         * @param guideId
+         * @return
+         */
+        @Delete("delete from guide where guide_id = #{guideId}")
+        int deleteByPrimaryKey(Integer guideId);
+
+        /**
          * 根据ID查询攻略
          */
         @Select("SELECT * FROM guide WHERE guide_id = #{guideId}")

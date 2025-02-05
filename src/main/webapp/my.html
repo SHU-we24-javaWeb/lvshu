@@ -325,7 +325,8 @@
                                 <div class="stat-label">粉丝</div>
                             </div>
                         </div>
-                        <a href="edit-profile.html" class="edit-btn" data-toggle="modal" data-target="#editProfileModal">
+                        <a href="edit-profile.html" class="edit-btn" data-toggle="modal"
+                            data-target="#editProfileModal">
                             <i class="bi bi-pencil"></i> 编辑资料
                         </a>
                     </div>
@@ -507,30 +508,6 @@
             window.location.href = `edit-guide.html?id=${guideId}`;
         }
 
-        // 删除攻略
-        function deleteGuide(guideId) {
-            if (confirm('确定要删除这篇攻略吗？此操作不可撤销。')) {
-                // 这里添加删除攻略的逻辑
-                fetch(`/api/guide/delete/${guideId}`, {
-                    method: 'DELETE'
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('攻略已删除');
-                            // 从页面移除对应的卡片
-                            document.querySelector(`[data-guide-id="${guideId}"]`).remove();
-                        } else {
-                            alert('删除失败：' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('删除失败，请稍后重试');
-                    });
-            }
-        }
-
         // 在页面加载完成后获取用户数据
         document.addEventListener('DOMContentLoaded', function () {
             loadUserProfile();
@@ -567,16 +544,22 @@
                                         <span><i class="bi bi-eye"></i> ${guide.viewCount}</span>
                                         <span><i class="bi bi-heart"></i> ${guide.favoriteCount}</span>
                                         <div class="action-buttons">
-                                             <a href="guide-detail.html?id=${guide.guideId}"
-                                                class="edit-btn">
+                                            <a href="guide-detail.html?id=${guide.guideId}"
+                                               class="edit-btn">
                                                 查看详情
                                             </a>
-                                            <button onclick="editGuide(${guide.guideId})" class="edit-btn">
+                                            <a href="edit-guide.html?id=${guide.guideId}" 
+                                               class="edit-btn">
                                                 <i class="bi bi-pencil"></i> 编辑
-                                            </button>
-                                            <button onclick="deleteGuide(${guide.guideId})" class="edit-btn">
-                                                <i class="bi bi-trash"></i> 删除
-                                            </button>
+                                            </a>
+                                            <form action="/lvshu/deleteGuideServlet" method="post" 
+                                                  style="display: inline-block;"
+                                                  onsubmit="return confirm('确定要删除这篇攻略吗？');">
+                                                <input type="hidden" name="guideId" value="${guide.guideId}">
+                                                <button type="submit" class="edit-btn">
+                                                    <i class="bi bi-trash"></i> 删除
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
