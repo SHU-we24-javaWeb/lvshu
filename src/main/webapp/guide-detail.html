@@ -351,8 +351,8 @@
                     <form id="commentForm" action="/lvshu/CreateCommentServlet" method="post">
                         <input type="hidden" name="guideId" id="guideIdInput">
                         <div class="form-group">
-                            <textarea class="form-control" name="comment" rows="3" 
-                                      placeholder="写下你的想法..." required></textarea>
+                            <textarea class="form-control" name="comment" rows="3" placeholder="写下你的想法..."
+                                required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary mt-3">
                             <i class="bi bi-send"></i> 发表评论
@@ -448,15 +448,16 @@
 
                         // 设置评论表单的guideId
                         document.getElementById('guideIdInput').value = guideId;
-                        
+
                         // 加载评论
                         loadComments(guideId);
+                    } else {
+                        alert(data.message || '加载攻略失败');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    document.getElementById('guideContent').innerHTML =
-                        `<div class="text-center">加载失败：${error.message}</div>`;
+                    alert('加载攻略失败，请稍后重试');
                 });
         }
 
@@ -583,14 +584,15 @@
 
         // 添加加载评论的函数
         function loadComments(guideId) {
-            fetch(`/lvshu/ShowCommentServlet?guideId=${guideId}`)
+            // 将 guideId 改为 id，与后端匹配
+            fetch(`/lvshu/ShowCommentServlet?id=${guideId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         const commentsContainer = document.getElementById('commentsList');
-                        document.getElementById('commentCount').textContent = 
+                        document.getElementById('commentCount').textContent =
                             `(${data.comments.length})`;
-                        
+
                         commentsContainer.innerHTML = data.comments.map(comment => `
                             <div class="comment-item">
                                 <div class="comment-header">
@@ -599,7 +601,7 @@
                                          class="comment-avatar">
                                     <div class="comment-user-info">
                                         <h5 class="comment-username">${escapeHtml(comment.user.username)}</h5>
-                                        <span class="comment-time">${formatDate(comment.createdAt)}</span>
+                                        <span class="comment-time">${new Date(parseInt(comment.createdAt)).toLocaleString()}</span>
                                     </div>
                                 </div>
                                 <div class="comment-content">
@@ -607,42 +609,28 @@
                                 </div>
                             </div>
                         `).join('');
+                    } else {
+                        document.getElementById('commentsList').innerHTML =
+                            '<div class="text-center text-white">暂无评论</div>';
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    document.getElementById('commentsList').innerHTML = 
-                        '<div class="text-center">加载评论失败</div>';
+                    document.getElementById('commentsList').innerHTML =
+                        '<div class="text-center text-white">加载评论失败</div>';
                 });
         }
 
-        // // 处理评论表单提交
-        // document.getElementById('commentForm').addEventListener('submit', function(e) {
-        //     e.preventDefault();
-        //
-        //     const formData = new FormData(this);
-        //
-        //     fetch('/lvshu/CreateCommentServlet', {
-        //         method: 'POST',
-        //         body: formData
-        //     })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         if (data.success) {
-        //             // 清空评论框
-        //             this.reset();
-        //             // 重新加载评论
-        //             loadComments(formData.get('guideId'));
-        //             alert('评论发表成功！');
-        //         } else {
-        //             alert(data.message || '评论发表失败');
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error('Error:', error);
-        //         alert('评论发表失败，请稍后重试');
-        //     });
-        // });
+        // 添加HTML转义函数（如果还没有的话）
+        function escapeHtml(unsafe) {
+            if (!unsafe) return '';
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
     </script>
 </body>
 
