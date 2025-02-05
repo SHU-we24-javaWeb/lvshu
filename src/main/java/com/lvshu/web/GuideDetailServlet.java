@@ -76,6 +76,7 @@ public class GuideDetailServlet extends HttpServlet {
                 .append("\"season\":\"").append(escapeJson(guide.getSeason())).append("\",")
                 .append("\"category\":\"").append(escapeJson(guide.getCategory())).append("\",")
                 .append("\"priceRange\":\"").append(escapeJson(guide.getPriceRange())).append("\",")
+                .append("\"tags\":\"").append(escapeJson(guide.getTags())).append("\",")
                 .append("\"viewCount\":").append(guide.getViewCount() != null ? guide.getViewCount() : 0).append(",")
                 .append("\"favoriteCount\":").append(guide.getFavoriteCount() != null ? guide.getFavoriteCount() : 0)
                 .append(",")

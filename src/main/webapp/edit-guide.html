@@ -406,11 +406,11 @@
                     if (data.success) {
                         const guide = data.guide;
                         console.log('Guide data:', guide); // 添加调试日志
-                        
+
                         // 填充表单字段
                         document.getElementById('title').value = guide.title;
                         document.getElementById('location').value = guide.location;
-                        document.getElementById('tags').value = guide.tags || ''; // 添加空字符串作为后备值
+                        document.getElementById('tags').value = guide.tags;
                         document.getElementById('category').value = guide.category;
                         document.getElementById('season').value = guide.season;
                         document.getElementById('priceRange').value = guide.priceRange;
