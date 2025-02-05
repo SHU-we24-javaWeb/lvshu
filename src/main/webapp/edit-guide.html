@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布攻略 - 小绿书</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200&family=Unbounded:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/tooplate-kool-form-pack.css" rel="stylesheet">
+    <style>
+        /* 继承基础样式 */
+        .menu-buttons {
+            background-color: rgba(44, 44, 44, 0.9);
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .menu-btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            background-color: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover,
+        .menu-btn.active {
+            background-color: #ffffff;
+            color: #000000;
+            text-decoration: none;
+        }
+
+        /* 创作页面特定样式 */
+        .create-section {
+            margin-top: 100px;
+            padding: 40px 0 100px;
+            color: #ffffff;
+        }
+
+        .create-form {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 12px 15px;
+        }
+
+        .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: #ffffff;
+            color: #ffffff;
+            box-shadow: none;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .preview-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .category-tag {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-tag.active {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        footer {
+            background-color: rgba(44, 44, 44, 0.9);
+            color: #ffffff;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .video-wrap {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .custom-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cover-preview {
+            margin-top: 15px;
+            width: 100%;
+            max-width: 300px;
+            aspect-ratio: 16/9;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .cover-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cover-preview .remove-image {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .preview-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-item .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        option {
+            color: black;
+            /* 设置搜索字体颜色为黑色 */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 视频背景 -->
+    <div class="video-wrap">
+        <video autoplay loop muted class="custom-video">
+            <source src="videos/video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- 菜单栏 -->
+    <div class="menu-buttons">
+        <a href="home.html" class="menu-btn">
+            <i class="bi bi-house-door"></i> 首页
+        </a>
+        <a href="search.html" class="menu-btn">
+            <i class="bi bi-search"></i> 搜索
+        </a>
+        <a href="create.html" class="menu-btn active">
+            <i class="bi bi-fire"></i> 创作
+        </a>
+        <a href="my.html" class="menu-btn">
+            <i class="bi bi-person"></i> 我的
+        </a>
+    </div>
+
+    <!-- 创作内容区域 -->
+    <div class="create-section">
+        <div class="container">
+            <form class="create-form" id="editForm" action="/lvshu/updateGuideServlet" method="post"
+                enctype="multipart/form-data" role="form">
+                <h2 class="mb-4">编辑旅游攻略</h2>
+                <input type="hidden" name="guideId" id="guideIdInput">
+
+                <div class="form-group">
+                    <label for="title">标题</label>
+                    <input type="text" class="form-control" name="title" id="title" placeholder="给你的攻略起个吸引人的标题"
+                        required="">
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>位置</label>
+                            <input type="text" class="form-control" name="location" id="location" placeholder="输入旅游地点"
+                                required="">
+                        </div>
+                        <div class="col-md-6">
+                            <label>标签</label>
+                            <input type="text" class="form-control" name="tags" id="tags" placeholder="多个标签用逗号分隔"
+                                required="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>分类</label>
+                            <select class="form-control" id="category" name="category">
+                                <option value="旅游">旅游</option>
+                                <option value="餐饮">餐饮</option>
+                                <option value="住宿">住宿</option>
+                                <option value="交通">交通</option>
+                                <option value="其他">其他</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>季节</label>
+                            <select class="form-control" id="season" name="season">
+                                <option value="四季">四季</option>
+                                <option value="春">春</option>
+                                <option value="夏">夏</option>
+                                <option value="秋">秋</option>
+                                <option value="冬">冬</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>价格区间</label>
+                            <select class="form-control" id="priceRange" name="priceRange">
+                                <option value="0-500">0-500</option>
+                                <option value="500-1000">500-1000</option>
+                                <option value="1000-2000">1000-2000</option>
+                                <option value="2000-5000">2000-5000</option>
+                                <option value="5000+">5000+</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="content">正文内容</label>
+                    <textarea class="form-control" id="content" name="content" rows="10"
+                        placeholder="详细描述你的旅行体验、建议和攻略..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>上传封面图片</label>
+                    <input type="file" class="form-control" id="coverImage" name="coverImage" accept="image/*"
+                        accept-charset="UTF-8">
+                    <div class="cover-preview" id="coverPreview">
+                        <!-- 封面图片预览将在这里显示 -->
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>上传图片（可多选）</label>
+                    <input type="file" class="form-control" id="images" name="images" multiple accept="image/*"
+                        accept-charset="UTF-8">
+                    <small class="text-light">可以按住Ctrl键选择多张图片</small>
+                    <div class="image-preview" id="imagePreview">
+                        <!-- 图片预览将在这里显示 -->
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="submit-btn">保存修改</button>
+                    <a href="my.html" class="submit-btn ms-3">取消</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <p class="text-center mb-0">© 2025 小绿书--小旅SHU旅游交流平台 版权所有</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript 文件 -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 在页面加载时获取攻略ID并加载信息
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const guideId = urlParams.get('id');
+            if (guideId) {
+                document.getElementById('guideIdInput').value = guideId;
+                loadGuideDetails(guideId);
+            }
+        });
+
+        // 加载攻略详情
+        function loadGuideDetails(guideId) {
+            fetch(`/lvshu/guide_details?id=${guideId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const guide = data.guide;
+                        console.log('Guide data:', guide); // 添加调试日志
+                        
+                        // 填充表单字段
+                        document.getElementById('title').value = guide.title;
+                        document.getElementById('location').value = guide.location;
+                        document.getElementById('tags').value = guide.tags || ''; // 添加空字符串作为后备值
+                        document.getElementById('category').value = guide.category;
+                        document.getElementById('season').value = guide.season;
+                        document.getElementById('priceRange').value = guide.priceRange;
+                        document.getElementById('content').value = guide.content;
+
+                        // 显示封面图片
+                        if (guide.coverImage) {
+                            const coverPreview = document.getElementById('coverPreview');
+                            coverPreview.innerHTML = `
+                            <img src="${guide.coverImage}" alt="封面预览">
+                            <button type="button" class="remove-image" onclick="removeCover()">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        `;
+                        }
+
+                        // 显示攻略图片
+                        if (guide.imagePaths) {
+                            const images = guide.imagePaths.split(',');
+                            const preview = document.getElementById('imagePreview');
+                            preview.innerHTML = images.map((img, index) => `
+                            <div class="preview-item">
+                                <img src="${img}" alt="预览图片">
+                                <button type="button" class="remove-image" onclick="removeImage(${index})">
+                                    <i class="bi bi-x"></i>
+                                </button>
+                            </div>
+                        `).join('');
+
+                            // 将现有图片添加到selectedFiles数组
+                            selectedFiles = images.map(img => {
+                                // 创建一个File对象来表示现有图片
+                                return {
+                                    name: img.split('/').pop(),
+                                    type: 'image/*',
+                                    existingPath: img // 添加标记表示这是现有图片
+                                };
+                            });
+                        }
+                    } else {
+                        alert('加载攻略信息失败：' + (data.message || '未知错误'));
+                        window.location.href = 'my.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('加载攻略信息失败，请稍后重试');
+                    window.location.href = 'my.html';
+                });
+        }
+
+        // 修改removeImage函数，处理现有图片和新上传图片的删除
+        function removeImage(index) {
+            selectedFiles.splice(index, 1);
+            updateImagePreview();
+        }
+
+        // 更新图片预览的辅助函数
+        function updateImagePreview() {
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = selectedFiles.map((file, idx) => `
+            <div class="preview-item">
+                <img src="${file.existingPath || URL.createObjectURL(file)}" alt="预览图片">
+                <button type="button" class="remove-image" onclick="removeImage(${idx})">
+                    <i class="bi bi-x"></i>
+                </button>
+            </div>
+        `).join('');
+        }
+
+        // 修改图片上传处理逻辑
+        document.getElementById('images').addEventListener('change', function (e) {
+            const files = Array.from(e.target.files);
+            // 将新文件添加到selectedFiles数组
+            selectedFiles = selectedFiles.concat(files);
+            updateImagePreview();
+        });
+
+        // 封面图片预览
+        document.getElementById('coverImage').addEventListener('change', function (e) {
+            const preview = document.getElementById('coverPreview');
+            preview.innerHTML = '';
+
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.innerHTML = `
+                        <img src="${e.target.result}" alt="封面预览">
+                        <button type="button" class="remove-image" onclick="removeCover()">
+                            <i class="bi bi-x"></i>
+                        </button>
+                    `;
+                }
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        function removeCover() {
+            document.getElementById('coverImage').value = '';
+            document.getElementById('coverPreview').innerHTML = '';
+        }
+    </script>
+</body>
+
+</html>
