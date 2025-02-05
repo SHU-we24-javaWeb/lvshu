@@ -180,6 +180,87 @@
         .action-btn i {
             font-size: 1.1em;
         }
+
+        .comments-section {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            margin-top: 30px;
+        }
+
+        .comment-form-container {
+            margin-bottom: 30px;
+        }
+
+        .comment-form-container textarea {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            border-radius: 10px;
+        }
+
+        .comment-form-container textarea:focus {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: #ffffff;
+            color: #ffffff;
+            box-shadow: none;
+        }
+
+        .comment-form-container button {
+            background-color: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            border-radius: 25px;
+            padding: 8px 25px;
+            transition: all 0.3s ease;
+        }
+
+        .comment-form-container button:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .comment-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .comment-user-info {
+            flex-grow: 1;
+        }
+
+        .comment-username {
+            margin: 0;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .comment-time {
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .comment-content {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+        }
     </style>
 </head>
 
@@ -261,6 +342,32 @@
                     <!-- 图片将在这里动态显示 -->
                 </div>
             </div>
+
+            <!-- 在guide-content div后面添加评论区 -->
+            <div class="comments-section">
+                <!-- 评论表单 -->
+                <div class="comment-form-container">
+                    <h3 class="mb-4">发表评论</h3>
+                    <form id="commentForm" action="/lvshu/CreateCommentServlet" method="post">
+                        <input type="hidden" name="guideId" id="guideIdInput">
+                        <div class="form-group">
+                            <textarea class="form-control" name="comment" rows="3" 
+                                      placeholder="写下你的想法..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">
+                            <i class="bi bi-send"></i> 发表评论
+                        </button>
+                    </form>
+                </div>
+
+                <!-- 评论列表 -->
+                <div class="comments-list mt-5">
+                    <h3 class="mb-4">全部评论 <span id="commentCount" class="text-muted">(0)</span></h3>
+                    <div id="commentsList">
+                        <!-- 评论将通过JavaScript动态加载 -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -338,6 +445,12 @@
                         const favoriteForm = document.querySelector('form[action^="/lvshu/favoriteServlet"]');
                         favoriteForm.action = `/lvshu/favoriteServlet?id=${guide.guideId}`;
                         favoriteForm.querySelector('input[name="guideId"]').value = guide.guideId;
+
+                        // 设置评论表单的guideId
+                        document.getElementById('guideIdInput').value = guideId;
+                        
+                        // 加载评论
+                        loadComments(guideId);
                     }
                 })
                 .catch(error => {
@@ -467,6 +580,69 @@
                     }
                 });
         }
+
+        // 添加加载评论的函数
+        function loadComments(guideId) {
+            fetch(`/lvshu/ShowCommentServlet?guideId=${guideId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const commentsContainer = document.getElementById('commentsList');
+                        document.getElementById('commentCount').textContent = 
+                            `(${data.comments.length})`;
+                        
+                        commentsContainer.innerHTML = data.comments.map(comment => `
+                            <div class="comment-item">
+                                <div class="comment-header">
+                                    <img src="${comment.user.avatar || 'images/default-avatar.jpg'}" 
+                                         alt="用户头像" 
+                                         class="comment-avatar">
+                                    <div class="comment-user-info">
+                                        <h5 class="comment-username">${escapeHtml(comment.user.username)}</h5>
+                                        <span class="comment-time">${formatDate(comment.createdAt)}</span>
+                                    </div>
+                                </div>
+                                <div class="comment-content">
+                                    ${escapeHtml(comment.comment)}
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('commentsList').innerHTML = 
+                        '<div class="text-center">加载评论失败</div>';
+                });
+        }
+
+        // // 处理评论表单提交
+        // document.getElementById('commentForm').addEventListener('submit', function(e) {
+        //     e.preventDefault();
+        //
+        //     const formData = new FormData(this);
+        //
+        //     fetch('/lvshu/CreateCommentServlet', {
+        //         method: 'POST',
+        //         body: formData
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         if (data.success) {
+        //             // 清空评论框
+        //             this.reset();
+        //             // 重新加载评论
+        //             loadComments(formData.get('guideId'));
+        //             alert('评论发表成功！');
+        //         } else {
+        //             alert(data.message || '评论发表失败');
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error('Error:', error);
+        //         alert('评论发表失败，请稍后重试');
+        //     });
+        // });
     </script>
 </body>
 
