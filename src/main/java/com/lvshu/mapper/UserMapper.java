@@ -28,6 +28,11 @@ public interface UserMapper {
     @Insert("INSERT INTO user (username, password) VALUES (#{username}, #{password})")
     void insertUser(User user);
 
+    /**
+     * 按用户id查询用户
+     * @param userId
+     * @return
+     */
     User selectById(int userId);
 
     /**
