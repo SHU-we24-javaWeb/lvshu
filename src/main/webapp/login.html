@@ -1,61 +1,119 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>小绿书 - 登录</title>
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>小绿书--小旅SHU旅游交流平台| 登录页面</title>
 
     <!-- CSS 文件 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-icons.css" rel="stylesheet">
     <link href="css/tooplate-kool-form-pack.css" rel="stylesheet">
 </head>
+
 <body>
+
 <main>
+
     <header class="site-header">
-        <div class="container d-flex justify-content-between align-items-center">
-            <a class="site-header-text" href="index.html">
-                <i class="bi-box"></i> 小绿书 - 旅游交流平台
-            </a>
-            <ul class="social-icon d-flex">
-                <li><a href="#" class="bi-instagram"></a></li>
-                <li><a href="#" class="bi-twitter"></a></li>
-                <li><a href="#" class="bi-whatsapp"></a></li>
-            </ul>
-            <a href="#" class="btn custom-btn" data-bs-toggle="modal" data-bs-target="#subscribeModal">联系我</a>
-            <a class="bi-list offcanvas-icon" data-bs-toggle="offcanvas" href="#offcanvasMenu"></a>
+        <div class="container">
+            <div class="row justify-content-between">
+
+                <div class="col-lg-12 col-12 d-flex">
+                    <a class="site-header-text d-flex justify-content-center align-items-center me-auto" href="index.html">
+                        <i class="bi-box"></i>
+
+                        <span>
+                            小绿书--小旅SHU旅游交流平台
+                        </span>
+                    </a>
+
+                    <ul class="social-icon d-flex justify-content-center align-items-center mx-auto">
+                        <!--                        <span class="text-white me-4 d-none d-lg-block">保持联系</span>-->
+
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-instagram"></a>
+                        </li>
+
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-twitter"></a>
+                        </li>
+
+                        <li class="social-icon-item">
+                            <a href="#" class="social-icon-link bi-whatsapp"></a>
+                        </li>
+                    </ul>
+
+                    <div>
+                        <a href="#" class="custom-btn custom-border-btn btn" data-bs-toggle="modal" data-bs-target="#subscribeModal">联系我
+                            <i class="bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+
+                    <a class="bi-list offcanvas-icon" data-bs-toggle="offcanvas" href="#offcanvasMenu" role="button" aria-controls="offcanvasMenu"></a>
+
+                </div>
+
+            </div>
         </div>
     </header>
 
-    <div class="offcanvas offcanvas-end" id="offcanvasMenu">
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
         <div class="offcanvas-header">
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="关闭"></button>
         </div>
-        <div class="offcanvas-body text-center">
+
+        <div class="offcanvas-body d-flex flex-column justify-content-center align-items-center">
             <nav>
                 <ul>
-                    <li><a class="active" href="login.html">登录</a></li>
-                    <li><a href="register.html">创建账户</a></li>
-                    <li><a href="password-reset.html">密码重置</a></li>
-                    <li><a href="contact.html">联系我们</a></li>
+                    <li>
+                        <a class="active" href="login.html">登录</a>
+                    </li>
+
+                    <li>
+                        <a href="register.html">创建账户</a>
+                    </li>
+
+                    <li>
+                        <a href="password-reset.html">密码重置</a>
+                    </li>
+
+                    <li>
+                        <a href="404.html">404 页面</a>
+                    </li>
+
+                    <li>
+                        <a href="contact.html">联系表单</a>
+                    </li>
                 </ul>
             </nav>
         </div>
     </div>
 
-    <div class="modal fade" id="subscribeModal">
-        <div class="modal-dialog modal-dialog-centered">
+    <!-- Modal -->
+    <div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
                 </div>
-                <div class="modal-body text-center">
-                    <h2>保持联系</h2>
+
+                <div class="modal-body">
+                    <h2 class="modal-title" id="subscribeModalLabel">保持联系</h2>
                     <p>如有任何问题，您可以通过以下邮箱与我们联系：</p>
                     <p><strong>开发者邮箱：1350575461@qq.com</strong></p>
+                </div>
+
+                <div class="modal-footer justify-content-center">
+                    <p>通过注册，您同意我们的隐私声明</p>
                 </div>
             </div>
         </div>
@@ -64,42 +122,62 @@
     <section class="hero-section d-flex justify-content-center align-items-center">
         <div class="container">
             <div class="row">
+
                 <div class="col-lg-5 col-12 mx-auto">
-                    <form action="/lvshu/loginServlet" method="post" class="custom-form login-form">
-                        <h2 class="text-center mb-4">登录</h2>
-                        <div class="form-floating mb-4">
-                            <input type="text" name="username" id="username" class="form-control" placeholder="用户名" required>
+                    <form action="/lvshu/loginServlet" class="custom-form login-form" role="form" method="post">
+                        <h2 class="hero-title text-center mb-4 pb-2">登录</h2>
+
+                        <div class="form-floating mb-4 p-0">
+                            <input type="text" name="username" id="username" class="form-control" placeholder="用户名" required="">
+
                             <label for="username">用户名</label>
                         </div>
-                        <div class="form-floating mb-4">
-                            <input type="password" name="password" id="password" class="form-control" placeholder="密码" required>
+
+                        <div class="form-floating p-0">
+                            <input type="password" name="password" id="password" class="form-control" placeholder="密码" required="">
+
                             <label for="password">密码</label>
                         </div>
+
                         <div class="form-check mb-4">
-                            <input class="form-check-input" type="checkbox" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">记住我</label>
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+
+                            <label class="form-check-label" for="flexCheckDefault">
+                                记住我
+                            </label>
                         </div>
-                        <div class="row text-center g-3">
-                            <div class="col-6">
-                                <button type="submit" class="btn btn-primary w-100">登录</button>
+
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-lg-5 col-12">
+                                <button type="submit" class="form-control">登录</button>
                             </div>
-                            <div class="col-6">
-                                <a href="register.html" class="btn btn-outline-secondary w-100">注册</a>
+
+                            <div class="col-lg-5 col-12">
+                                <a href="register.html" class="btn custom-btn custom-border-btn">注册</a>
                             </div>
                         </div>
+
                     </form>
+
                 </div>
             </div>
         </div>
-        <video autoplay loop muted class="custom-video">
-            <source src="videos/video.mp4" type="video/mp4">
-            您的浏览器不支持视频标签。
-        </video>
+
+        <div class="video-wrap">
+            <video autoplay="" loop="" muted="" class="custom-video" poster="">
+                <source src="videos/video.mp4" type="video/mp4">
+
+                您的浏览器不支持视频标签。
+            </video>
+        </div>
     </section>
 </main>
 
-<!-- JS 文件 -->
-<script src="js/bootstrap.bundle.min.js" defer></script>
-<script src="js/init.js" defer></script>
+<!-- JAVASCRIPT 文件 -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/countdown.js"></script>
+<script src="js/init.js"></script>
+
 </body>
 </html>
