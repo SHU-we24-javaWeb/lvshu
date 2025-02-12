@@ -1,0 +1,130 @@
+.menu-buttons {
+    background-color: rgba(44, 44, 44, 0.9);
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.menu-btn {
+    padding: 12px 30px;
+    border-radius: 50px;
+    background-color: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.menu-btn:hover,
+.menu-btn.active {
+    background-color: #ffffff;
+    color: #000000;
+    text-decoration: none;
+}
+
+.content-section {
+    margin-top: 60px; /* 减少顶部间距 */
+    padding: 20px 0;  /* 减少整体的内边距 */
+}
+
+/* 轮播图 */
+#customCarousel {
+    width: 60%;
+    max-width: 1000px;
+    margin: 80px auto 30px auto; /* 让轮播图与下面的内容更紧密 */
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 50px;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    width: 100%;
+    flex-shrink: 0;
+    height: 400px;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+}
+
+.thumbnail {
+    margin-top: 10px; /* 减少卡片之间的间距 */
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 20px;
+    padding: 20px;
+    color: #ffffff;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.thumbnail:hover {
+    transform: translateY(-10px);
+}
+
+.thumbnail img {
+    border-radius: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.btn-primary {
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    border-radius: 50px;
+    padding: 10px 25px;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+}
+
+.video-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.custom-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+footer {
+    background-color: rgba(44, 44, 44, 0.9);
+    color: #ffffff;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
