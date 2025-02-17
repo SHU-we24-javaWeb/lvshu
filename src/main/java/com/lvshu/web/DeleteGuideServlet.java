@@ -87,6 +87,11 @@ public class DeleteGuideServlet extends HttpServlet {
         sqlSession.close();
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.doPost(req, resp);
+    }
+
     private String getSubmittedFileName(Part part) {
         for (String cd : part.getHeader("content-disposition").split(";")) {
             if (cd.trim().startsWith("filename")) {
@@ -95,10 +100,5 @@ public class DeleteGuideServlet extends HttpServlet {
             }
         }
         return null;
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.doPost(req, resp);
     }
 }
