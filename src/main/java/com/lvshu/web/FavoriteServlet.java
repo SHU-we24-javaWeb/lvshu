@@ -1,7 +1,9 @@
 package com.lvshu.web;
 
+import com.lvshu.mapper.GuideMapper;
 import com.lvshu.mapper.UserFavoriteMapper;
 import com.lvshu.mapper.UserMapper;
+import com.lvshu.pojo.Guide;
 import com.lvshu.pojo.User;
 import com.lvshu.pojo.UserFavorite;
 import com.lvshu.util.SqlSessionFactoryUtils;
@@ -65,6 +67,14 @@ public class FavoriteServlet extends HttpServlet {
         user = userMapper.selectUserByUsername(user.getUsername());
         int userId = user.getUserId();
         System.out.println(user);
+
+        // 查guide
+        GuideMapper guideMapper = sqlSession.getMapper(GuideMapper.class);
+        Guide guide = guideMapper.selectById(guideId);
+
+        // 更新guide中的被收藏数量
+        guide.setFavoriteCount(guide.getFavoriteCount() + 1);
+        guideMapper.updateFavorite(guide);
 
         // 封装数据
         UserFavorite userFavorite = new UserFavorite();
