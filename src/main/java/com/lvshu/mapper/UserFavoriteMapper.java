@@ -55,4 +55,10 @@ public interface UserFavoriteMapper {
      */
     @Select("SELECT COUNT(*) FROM user_favorites WHERE user_id = #{userId}")
     int countFavorites(Integer userId);
+
+    /**
+     * 统计攻略被收藏数量
+     */
+    @Select("SELECT COUNT(*) FROM user_favorites WHERE guide_id = #{guideId}")
+    int countGUideFavorites(Integer guideId);
 }
