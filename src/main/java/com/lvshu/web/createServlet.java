@@ -127,7 +127,8 @@ public class createServlet extends HttpServlet {
         guide.setImagePaths(imagesPaths);
         guide.setCoverImage(coverPaths);
         guide.setAuthorId(user.getUserId());
-        guide.setStatus("published");
+        // TODO 未审核过的都是draft 可以展示的是published
+        guide.setStatus("draft");
 
         //打印信息
         System.out.println(guide);
