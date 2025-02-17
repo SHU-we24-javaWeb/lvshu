@@ -82,7 +82,7 @@ VALUES (
            '西安',
            '兵马俑, 大雁塔, 古城墙',
            '四季',
-           '500-1500'
+           '500-1000'
        );
 
 INSERT INTO guide (title, content, image_paths, cover_image, author_id, category, location, tags, season, price_range)
@@ -96,7 +96,7 @@ VALUES (
            '重庆',
            '洪崖洞, 磁器口, 长江索道',
            '四季',
-           '300-1000'
+           '500-1000'
        );
 
 INSERT INTO guide (title, content, image_paths, cover_image, author_id, category, location, tags, season, price_range)
@@ -110,7 +110,7 @@ VALUES (
            '武汉',
            '黄鹤楼, 东湖, 江汉路步行街',
            '四季',
-           '200-800'
+           '0-500'
        );
 
 INSERT INTO guide (title, content, image_paths, cover_image, author_id, category, location, tags, season, price_range)
@@ -124,7 +124,7 @@ VALUES (
            '南京',
            '中山陵, 夫子庙, 雨花台',
            '四季',
-           '400-1200'
+           '1000-2000'
        );
 
 INSERT INTO guide (title, content, image_paths, cover_image, author_id, category, location, tags, season, price_range)
@@ -138,7 +138,7 @@ VALUES (
            '昆明',
            '滇池, 西山, 石林',
            '夏',
-           '300-1000'
+           '500-1000'
        );
 
 INSERT INTO guide (title, content, image_paths, cover_image, author_id, category, location, tags, season, price_range)
@@ -152,7 +152,7 @@ VALUES (
            '香港',
            '维多利亚港, 迪士尼乐园, 太平山顶',
            '四季',
-           '1000-3000'
+           '5000+'
        );
 
 INSERT INTO guide (title, content, image_paths, cover_image, author_id, category, location, tags, season, price_range)
@@ -162,9 +162,9 @@ VALUES (
            'images/guangzhou_1.jpg,images/guangzhou_2.jpg,images/guangzhou_3.jpg',
            'images/guangzhou_cover.jpg',
            1,
-           '旅游',
+           '餐饮',
            '广州',
            '广州塔, 沙面, 陈家祠',
            '四季',
-           '500-1500'
+           '0-500'
        );
