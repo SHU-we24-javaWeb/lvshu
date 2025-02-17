@@ -1,6 +1,7 @@
 package com.lvshu.web;
 
 import com.lvshu.mapper.GuideMapper;
+import com.lvshu.mapper.UserFavoriteMapper;
 import com.lvshu.pojo.Guide;
 import com.lvshu.pojo.User;
 import com.lvshu.util.SqlSessionFactoryUtils;
@@ -51,6 +52,13 @@ public class SearchServlet extends HttpServlet {
             try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
                 GuideMapper guideMapper = sqlSession.getMapper(GuideMapper.class);
                 List<Guide> guides = guideMapper.searchByKeywords(keyword, season, category, priceRange);
+
+                // 如果这边收藏数量不正常就把这个打开
+                /*UserFavoriteMapper userFavoriteMapper = sqlSession.getMapper(UserFavoriteMapper.class);
+                for (Guide guide: guides) {
+                    userFavoriteMapper.countGUideFavorites(guide.getGuideId());
+                    guide.setFavoriteCount(guide.getFavoriteCount());
+                }*/
 
                 // 构建JSON响应
                 StringBuilder json = new StringBuilder();
