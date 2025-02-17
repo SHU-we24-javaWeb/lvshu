@@ -27,6 +27,11 @@
                      select="com.lvshu.mapper.UserMapper.selectById"/>
     </resultMap>
 
+    <update id="updateFavorite">
+        UPDATE guide SET favorite_count = #{favoriteCount}
+        WHERE guide_id = #{guideId};
+    </update>
+
     <select id="searchByKeywords" resultMap="guideResultMap">
         SELECT * FROM guide 
         <where>

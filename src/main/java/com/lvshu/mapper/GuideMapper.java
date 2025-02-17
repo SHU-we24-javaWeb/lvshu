@@ -26,6 +26,12 @@ public interface GuideMapper {
                         "WHERE guide_id=#{guideId}")
         int update(Guide guide);
 
+
+        /**
+         * 更新攻略信息
+         */
+        int updateFavorite(Guide guide);
+
         /**
          * 删除攻略
          * @param guideId
