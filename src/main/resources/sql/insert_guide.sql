@@ -71,4 +71,100 @@ VALUES (
            '500-1000'
        );
 
+INSERT INTO guide (title, content, image_paths, cover_image, author_id, category, location, tags, season, price_range)
+VALUES (
+           '西安历史文化之旅：探索古都的魅力',
+           '西安是中国四大古都之一，拥有丰富的历史文化遗产。这里不仅有世界闻名的兵马俑，还有古城墙、大雁塔等著名景点。推荐游玩的景点有：兵马俑、大雁塔、古城墙、华清池。',
+           'images/xian_1.jpg,images/xian_2.jpg,images/xian_3.jpg',
+           'images/xian_cover.jpg',
+           3,
+           '旅游',
+           '西安',
+           '兵马俑, 大雁塔, 古城墙',
+           '四季',
+           '500-1500'
+       );
 
+INSERT INTO guide (title, content, image_paths, cover_image, author_id, category, location, tags, season, price_range)
+VALUES (
+           '重庆山城之旅：感受独特的山城风貌',
+           '重庆是一座充满魅力的山城，以其独特的地形和美食闻名。在这里，你可以体验到长江索道、洪崖洞、磁器口等独具特色的景点。推荐游玩的景点有：洪崖洞、磁器口、长江索道、解放碑。',
+           'images/chongqing_1.jpg,images/chongqing_2.jpg,images/chongqing_3.jpg',
+           'images/chongqing_cover.jpg',
+           1,
+           '旅游',
+           '重庆',
+           '洪崖洞, 磁器口, 长江索道',
+           '四季',
+           '300-1000'
+       );
+
+INSERT INTO guide (title, content, image_paths, cover_image, author_id, category, location, tags, season, price_range)
+VALUES (
+           '武汉江城之旅：感受长江的魅力',
+           '武汉是一座依江而建的城市，长江和汉江在此交汇。这里有着丰富的历史文化和自然景观。推荐游玩的景点有：黄鹤楼、东湖、武汉大学、江汉路步行街。',
+           'images/wuhan_1.jpg,images/wuhan_2.jpg,images/wuhan_3.jpg',
+           'images/wuhan_cover.jpg',
+           2,
+           '旅游',
+           '武汉',
+           '黄鹤楼, 东湖, 江汉路步行街',
+           '四季',
+           '200-800'
+       );
+
+INSERT INTO guide (title, content, image_paths, cover_image, author_id, category, location, tags, season, price_range)
+VALUES (
+           '南京古都之旅：探寻六朝古都的历史',
+           '南京是中国历史上的六朝古都，拥有丰富的历史遗迹和文化景观。这里有着中山陵、夫子庙、明孝陵等著名景点。推荐游玩的景点有：中山陵、夫子庙、明孝陵、玄武湖。',
+           'images/nanjing_1.jpg,images/nanjing_2.jpg,images/nanjing_3.jpg',
+           'images/nanjing_cover.jpg',
+           3,
+           '旅游',
+           '南京',
+           '中山陵, 夫子庙, 雨花台',
+           '四季',
+           '400-1200'
+       );
+
+INSERT INTO guide (title, content, image_paths, cover_image, author_id, category, location, tags, season, price_range)
+VALUES (
+           '昆明春城之旅：感受四季如春的气候',
+           '昆明被誉为“春城”，因其四季如春的气候而闻名。这里有着丰富的自然景观和民族文化。推荐游玩的景点有：滇池、石林、翠湖公园、西山森林公园。',
+           'images/kunming_1.jpg,images/kunming_2.jpg,images/kunming_3.jpg',
+           'images/kunming_cover.jpg',
+           1,
+           '旅游',
+           '昆明',
+           '滇池, 西山, 石林',
+           '夏',
+           '300-1000'
+       );
+
+INSERT INTO guide (title, content, image_paths, cover_image, author_id, category, location, tags, season, price_range)
+VALUES (
+           '香港都市之旅：体验国际大都会的繁华',
+           '香港是一座充满活力的国际大都市，融合了东西方文化。这里有着维多利亚港、迪士尼乐园、太平山顶等著名景点。推荐游玩的景点有：维多利亚港、迪士尼乐园、太平山顶、星光大道。',
+           'images/hongkong_1.jpg,images/hongkong_2.jpg,images/hongkong_3.jpg',
+           'images/hongkong_cover.jpg',
+           4,
+           '旅游',
+           '香港',
+           '维多利亚港, 迪士尼乐园, 太平山顶',
+           '四季',
+           '1000-3000'
+       );
+
+INSERT INTO guide (title, content, image_paths, cover_image, author_id, category, location, tags, season, price_range)
+VALUES (
+           '广州美食之旅：品味岭南美食文化',
+           '广州是中国著名的美食之都，拥有丰富的岭南美食文化。这里有着广州塔、沙面、陈家祠等著名景点。推荐游玩的景点有：广州塔、沙面、陈家祠、白云山。',
+           'images/guangzhou_1.jpg,images/guangzhou_2.jpg,images/guangzhou_3.jpg',
+           'images/guangzhou_cover.jpg',
+           1,
+           '旅游',
+           '广州',
+           '广州塔, 沙面, 陈家祠',
+           '四季',
+           '500-1500'
+       );
