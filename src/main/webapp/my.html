@@ -331,6 +331,7 @@
                         </a>
                     </div>
                 </div>
+
             </div>
 
             <!-- 修改内容部分的布局 -->
@@ -434,6 +435,13 @@
             </div>
         </div>
     </div>
+
+    <!-- 退出登录按钮 -->
+    <div class="text-center mt-4">
+        <button class="btn btn-danger" onclick="logout()">退出登录</button>
+    </div>
+
+    <br><br><br>
 
     <!-- 页脚 -->
     <footer>
@@ -605,6 +613,30 @@
                 .replace(/>/g, "&gt;")
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#039;");
+        }
+    </script>
+
+    <!--退出登录逻辑 -->
+    <script>
+        function logout() {
+            // 这里你可以通过API调用后端进行退出登录操作
+            fetch('/lvshu/logoutServlet', {
+                method: 'POST'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // 成功退出，跳转到登录页面
+                        alert('退出成功');
+                        window.location.href = 'login.html';  // 假设登录页面是 login.html
+                    } else {
+                        alert('退出失败，请稍后重试');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('退出失败，请稍后重试');
+                });
         }
     </script>
 </body>
