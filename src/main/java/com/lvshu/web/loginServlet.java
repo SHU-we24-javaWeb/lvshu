@@ -49,16 +49,25 @@ public class loginServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         // 3.判断user是否为null
         if (user != null) {
-            // 登陆成功，跳转到主页或其他页面
-            writer.write("<html><body>");
-            writer.write("<h1>登录成功！</h1>");
-            writer.write("<script>window.alert(\"登陆成功\");</script>");
-            writer.write("<script>window.location.href='home.html';</script>"); // 登录成功后跳转
-            writer.write("</body></html>");
+            if(user.getStatus() == "active")
+            {
+                // 登陆成功，跳转到主页或其他页面
+                writer.write("<html><body>");
+                writer.write("<h1>登录成功！</h1>");
+                writer.write("<script>window.alert(\"登陆成功\");</script>");
+                writer.write("<script>window.location.href='home.html';</script>"); // 登录成功后跳转
+                writer.write("</body></html>");
 
-            // 存入session
-            HttpSession session = req.getSession();
-            session.setAttribute("user", user); // 存储整个user对象，而不是只存储userId
+                // 存入session
+                HttpSession session = req.getSession();
+                session.setAttribute("user", user); // 存储整个user对象，而不是只存储userId
+            } else {
+                // 登陆失败
+                writer.write("<html><body>");
+                writer.write("<h1>登陆失败,账户被封禁!</h1>");
+                writer.write("<script>alert('登陆失败,账户被封禁!'); window.history.back();</script>"); // 弹窗并返回上一步
+                writer.write("</body></html>");
+            }
         } else {
             // 登陆失败，弹出提示框
             writer.write("<html><body>");
