@@ -65,6 +65,10 @@
       select * from user where username = #{username}
     </select>
 
+    <select id="selectByPage" resultType="com.lvshu.pojo.User" resultMap="UserResultMap">
+        SELECT * FROM user ORDER BY created_at DESC LIMIT #{offset}, #{pageSize}
+    </select>
+
 
     <!--
        参数占位符：
