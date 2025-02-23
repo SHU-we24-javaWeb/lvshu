@@ -112,4 +112,35 @@ public interface GuideMapper {
          */
         @Update("UPDATE guide SET status = #{status} WHERE guide_id = #{guideId}")
         int updateStatus(@Param("guideId") Integer guideId, @Param("status") String status);
+
+        /**
+         * 根据状态统计攻略数量
+         */
+        @Select("SELECT COUNT(*) FROM guide WHERE status = #{status}")
+        int countByStatus(@Param("status") String status);
+
+        /**
+         * 根据状态分页查询攻略
+         */
+        @Select("SELECT g.guide_id, g.title, g.author_id, g.status, g.created_at, g.cover_image FROM guide g " +
+                "WHERE g.status = #{status} ORDER BY g.created_at DESC LIMIT #{offset}, #{pageSize}")
+        @Results({
+                @Result(property = "guideId", column = "guide_id"),
+                @Result(property = "authorId", column = "author_id"),
+                @Result(property = "coverImage", column = "cover_image"),
+                @Result(property = "createdAt", column = "created_at")
+        })
+        List<Guide> selectByStatus(@Param("status") String status, @Param("offset") int offset, @Param("pageSize") int pageSize);
+
+        /**
+         * 统计攻略总数
+         */
+        @Select("SELECT COUNT(*) FROM guide")
+        int countTotal();
+
+        /**
+         * 统计总浏览量
+         */
+        @Select("SELECT SUM(view_count) FROM guide")
+        int countAllViewCount();
 }

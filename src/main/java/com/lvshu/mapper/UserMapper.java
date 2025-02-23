@@ -3,6 +3,8 @@ package com.lvshu.mapper;
 import com.lvshu.pojo.User;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 public interface UserMapper {
 
     /**
@@ -47,4 +49,15 @@ public interface UserMapper {
 
     @Update("UPDATE user SET status = #{status} WHERE user_id = #{userId}")
     int updateStatus(@Param("userId") Integer userId, @Param("status") String status);
+
+    /**
+     * 统计用户总数
+     */
+    @Select("SELECT COUNT(*) FROM user")
+    int countTotal();
+
+    /**
+     * 分页查询用户列表
+     */
+    List<User> selectByPage(@Param("offset") int offset, @Param("pageSize") int pageSize);
 }

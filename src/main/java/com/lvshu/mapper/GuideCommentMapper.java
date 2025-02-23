@@ -32,4 +32,16 @@ public interface GuideCommentMapper {
     @Select("SELECT * FROM guide_comments WHERE user_id = #{userId} AND status = 'active' " +
             "ORDER BY created_at DESC")
     List<GuideComment> selectByUserId(Integer userId);
+
+    /**
+     * 更新评论状态
+     */
+    @Update("UPDATE guide_comments SET status = #{status} WHERE comment_id = #{commentId}")
+    int updateStatus(@Param("commentId") Integer commentId, @Param("status") String status);
+
+    /**
+     * 统计评论总数
+     */
+    @Select("SELECT COUNT(*) FROM guide_comments")
+    int countTotal();
 }
