@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理 - 小旅SHU</title>
+    <!-- 引入ElementUI样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        .el-container {
+            height: 100vh;
+        }
+        .el-aside {
+            background-color: #304156;
+            color: #fff;
+            height: 100vh;
+        }
+        .el-menu {
+            border-right: none;
+        }
+        .content-header {
+            padding: 20px;
+            border-bottom: 1px solid #e6e6e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .content-main {
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #f7f9fc 100%);
+            border-radius: 20px;
+            margin: 20px;
+            padding: 30px;
+        }
+        .statistics-cards {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.2) 100%);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .statistics-card {
+            width: 280px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        .statistics-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .statistics-card:nth-child(1) {
+            background: linear-gradient(135deg, rgba(64,158,255,0.1) 0%, rgba(255,255,255,0.9) 100%);
+        }
+        .statistics-card:nth-child(2) {
+            background: linear-gradient(135deg, rgba(103,194,58,0.1) 0%, rgba(255,255,255,0.9) 100%);
+        }
+        .statistics-card:nth-child(3) {
+            background: linear-gradient(135deg, rgba(230,162,60,0.1) 0%, rgba(255,255,255,0.9) 100%);
+        }
+        .statistics-card:nth-child(4) {
+            background: linear-gradient(135deg, rgba(245,108,108,0.1) 0%, rgba(255,255,255,0.9) 100%);
+        }
+        .statistics-card .el-card__header {
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #606266;
+        }
+        .statistics-number {
+            font-size: 42px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #333 30%, #666 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+            animation: numberGrow 1s ease-out;
+        }
+        .statistics-icon {
+            font-size: 28px;
+            margin-bottom: 15px;
+            opacity: 0.9;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        .statistics-card:nth-child(1) .statistics-icon { color: #409EFF; }
+        .statistics-card:nth-child(2) .statistics-icon { color: #67C23A; }
+        .statistics-card:nth-child(3) .statistics-icon { color: #E6A23C; }
+        .statistics-card:nth-child(4) .statistics-icon { color: #F56C6C; }
+        @keyframes numberGrow {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .statistics-content {
+            padding: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        .statistics-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            z-index: -1;
+            border-radius: 10px;
+        }
+        .statistics-label {
+            font-size: 14px;
+            color: #606266;
+            margin-top: 15px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+        .logout-btn {
+            position: absolute;
+            bottom: 20px;
+            width: 160px;
+            left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <el-container>
+            <!-- 左侧菜单 -->
+            <el-aside width="200px">
+                <el-menu
+                    :default-active="activeMenu"
+                    background-color="#304156"
+                    text-color="#fff"
+                    active-text-color="#409EFF"
+                    @select="handleSelect">
+                    <el-menu-item index="guide">
+                        <i class="el-icon-document"></i>
+                        <span>攻略审核</span>
+                    </el-menu-item>
+                    <el-menu-item index="user">
+                        <i class="el-icon-user"></i>
+                        <span>用户管理</span>
+                    </el-menu-item>
+                    <el-menu-item index="statistics">
+                        <i class="el-icon-data-line"></i>
+                        <span>数据统计</span>
+                    </el-menu-item>
+                </el-menu>
+                <el-button type="danger" class="logout-btn" @click="handleLogout">退出登录</el-button>
+            </el-aside>
+
+            <!-- 右侧内容区 -->
+            <el-main>
+                <!-- 攻略审核页面 -->
+                <div v-show="activeMenu === 'guide'">
+                    <div class="content-header">
+                        <h2>攻略审核</h2>
+                        <el-select v-model="guideStatus" placeholder="请选择状态" @change="loadGuides">
+                            <el-option label="待审核" value="draft"></el-option>
+                            <el-option label="已发布" value="published"></el-option>
+                        </el-select>
+                    </div>
+                    <div class="content-main">
+                        <el-table :data="guides" border style="width: 100%" v-loading="loading">
+                            <el-table-column label="封面" width="120">
+                                <template slot-scope="scope">
+                                    <el-image 
+                                        style="width: 100px; height: 60px" 
+                                        :src="scope.row.coverImage"
+                                        fit="cover">
+                                    </el-image>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="title" label="标题"></el-table-column>
+                            <el-table-column prop="authorId" label="作者ID"></el-table-column>
+                            <el-table-column prop="createdAt" label="创建时间">
+                                <template slot-scope="scope">
+                                    {{ scope.row.createdAt | formatDate }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="status" label="状态">
+                                <template slot-scope="scope">
+                                    <el-tag :type="scope.row.status === 'published' ? 'success' : 'warning'">
+                                        {{scope.row.status === 'published' ? '已发布' : '待审核'}}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="操作" width="200">
+                                <template slot-scope="scope">
+                                    <el-button size="mini" @click="viewGuide(scope.row)">查看</el-button>
+                                    <el-button 
+                                        size="mini" 
+                                        type="primary"
+                                        v-if="scope.row.status === 'draft'"
+                                        @click="updateGuideStatus(scope.row.guideId, 'published')">
+                                        通过
+                                    </el-button>
+                                    <el-button 
+                                        size="mini" 
+                                        type="danger"
+                                        v-if="scope.row.status === 'published'"
+                                        @click="updateGuideStatus(scope.row.guideId, 'draft')">
+                                        撤回
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <el-pagination
+                            @current-change="handleCurrentChange"
+                            :current-page="currentPage"
+                            :page-size="pageSize"
+                            :total="total"
+                            layout="total, prev, pager, next"
+                            style="margin-top: 20px;">
+                        </el-pagination>
+                    </div>
+                </div>
+
+                <!-- 用户管理页面 -->
+                <div v-show="activeMenu === 'user'">
+                    <div class="content-header">
+                        <h2>用户管理</h2>
+                    </div>
+                    <div class="content-main">
+                        <el-table :data="users" border style="width: 100%" v-loading="loading">
+                            <el-table-column prop="userId" label="用户ID" width="80"></el-table-column>
+                            <el-table-column label="头像" width="80">
+                                <template slot-scope="scope">
+                                    <el-avatar 
+                                        :size="40"
+                                        :src="scope.row.avatar"
+                                        v-if="scope.row.avatar">
+                                    </el-avatar>
+                                    <el-avatar 
+                                        :size="40"
+                                        icon="el-icon-user"
+                                        v-else>
+                                    </el-avatar>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="username" label="用户名"></el-table-column>
+                            <el-table-column prop="gender" label="性别" width="60">
+                                <template slot-scope="scope">
+                                    {{ scope.row.gender === 'M' ? '男' : (scope.row.gender === 'F' ? '女' : '其他') }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="dateOfBirth" label="出生日期" width="100">
+                                <template slot-scope="scope">
+                                    {{ scope.row.dateOfBirth | formatDate }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="nativePlace" label="籍贯"></el-table-column>
+                            <el-table-column prop="mobilePhone" label="手机号"></el-table-column>
+                            <el-table-column prop="email" label="邮箱"></el-table-column>
+                            <el-table-column prop="major" label="专业"></el-table-column>
+                            <el-table-column prop="signature" label="个性签名" show-overflow-tooltip></el-table-column>
+                            <el-table-column prop="createdAt" label="注册时间" width="150">
+                                <template slot-scope="scope">
+                                    {{ scope.row.createdAt | formatDate }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="status" label="状态" width="80">
+                                <template slot-scope="scope">
+                                    <el-tag :type="scope.row.status === 'active' ? 'success' : 'danger'">
+                                        {{scope.row.status === 'active' ? '正常' : '已封禁'}}
+                                    </el-tag>
+                                </template>
+                            </el-table-column>
+                            <el-table-column label="操作" width="120">
+                                <template slot-scope="scope">
+                                    <el-button 
+                                        size="mini" 
+                                        type="danger"
+                                        v-if="scope.row.status === 'active'"
+                                        @click="updateUserStatus(scope.row.userId, 'banned')">
+                                        封禁
+                                    </el-button>
+                                    <el-button 
+                                        size="mini" 
+                                        type="success"
+                                        v-if="scope.row.status === 'banned'"
+                                        @click="updateUserStatus(scope.row.userId, 'active')">
+                                        解封
+                                    </el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                        <el-pagination
+                            @current-change="handleUserCurrentChange"
+                            :current-page="userCurrentPage"
+                            :page-size="pageSize"
+                            :total="userTotal"
+                            layout="total, prev, pager, next"
+                            style="margin-top: 20px;">
+                        </el-pagination>
+                    </div>
+                </div>
+
+                <!-- 数据统计页面 -->
+                <div v-show="activeMenu === 'statistics'">
+                    <div class="content-header">
+                        <h2>数据统计</h2>
+                        <el-button type="primary" @click="loadStatistics">刷新数据</el-button>
+                    </div>
+                    <div class="content-main">
+                        <div class="statistics-cards">
+                            <el-card class="statistics-card">
+                                <div class="statistics-content">
+                                    <i class="el-icon-user statistics-icon"></i>
+                                    <div class="statistics-number">{{statistics.userCount}}</div>
+                                    <div class="statistics-label">注册用户总数</div>
+                                </div>
+                            </el-card>
+                            <el-card class="statistics-card">
+                                <div class="statistics-content">
+                                    <i class="el-icon-document statistics-icon"></i>
+                                    <div class="statistics-number">{{statistics.guideCount}}</div>
+                                    <div class="statistics-label">发布攻略总数</div>
+                                </div>
+                            </el-card>
+                            <el-card class="statistics-card">
+                                <div class="statistics-content">
+                                    <i class="el-icon-chat-line-square statistics-icon"></i>
+                                    <div class="statistics-number">{{statistics.commentCount}}</div>
+                                    <div class="statistics-label">评论总数</div>
+                                </div>
+                            </el-card>
+                            <el-card class="statistics-card">
+                                <div class="statistics-content">
+                                    <i class="el-icon-view statistics-icon"></i>
+                                    <div class="statistics-number">{{statistics.viewCount}}</div>
+                                    <div class="statistics-label">总浏览量</div>
+                                </div>
+                            </el-card>
+                        </div>
+                    </div>
+                </div>
+            </el-main>
+        </el-container>
+
+        <!-- 攻略详情对话框 -->
+        <el-dialog title="攻略详情" :visible.sync="dialogVisible" width="70%">
+            <div v-if="guideDetail" v-loading="dialogLoading">
+                <h3>{{ guideDetail.title }}</h3>
+                <el-descriptions border>
+                    <el-descriptions-item label="作者">{{ guideDetail.authorName }}</el-descriptions-item>
+                    <el-descriptions-item label="创建时间">{{ guideDetail.createdAt | formatDate }}</el-descriptions-item>
+                    <el-descriptions-item label="更新时间">{{ guideDetail.updatedAt | formatDate }}</el-descriptions-item>
+                    <el-descriptions-item label="状态">
+                        <el-tag :type="guideDetail.status === 'published' ? 'success' : 'warning'">
+                            {{guideDetail.status === 'published' ? '已发布' : '待审核'}}
+                        </el-tag>
+                    </el-descriptions-item>
+                    <el-descriptions-item label="地点">{{ guideDetail.location }}</el-descriptions-item>
+                    <el-descriptions-item label="季节">{{ guideDetail.season }}</el-descriptions-item>
+                    <el-descriptions-item label="分类">{{ guideDetail.category }}</el-descriptions-item>
+                    <el-descriptions-item label="价格区间">{{ guideDetail.priceRange }}</el-descriptions-item>
+                    <el-descriptions-item label="浏览量">{{ guideDetail.viewCount }}</el-descriptions-item>
+                    <el-descriptions-item label="评论数">{{ guideDetail.commentCount }}</el-descriptions-item>
+                    <el-descriptions-item label="收藏数">{{ guideDetail.favoriteCount }}</el-descriptions-item>
+                    <el-descriptions-item label="点赞数">{{ guideDetail.likeCount }}</el-descriptions-item>
+                </el-descriptions>
+
+                <!-- 封面图片 -->
+                <div style="margin: 20px 0;">
+                    <h4>封面图片：</h4>
+                    <el-image 
+                        style="width: 200px; height: 120px" 
+                        :src="guideDetail.coverImage"
+                        fit="cover">
+                    </el-image>
+                </div>
+
+                <!-- 攻略图片 -->
+                <div style="margin: 20px 0;" v-if="guideDetail.imagePaths">
+                    <h4>攻略图片：</h4>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <el-image 
+                            v-for="(path, index) in guideDetail.imagePaths.split(',')"
+                            :key="index"
+                            style="width: 200px; height: 120px" 
+                            :src="path"
+                            fit="cover">
+                        </el-image>
+                    </div>
+                </div>
+
+                <!-- 攻略内容 -->
+                <div style="margin: 20px 0;">
+                    <h4>攻略内容：</h4>
+                    <div style="white-space: pre-wrap;">{{ guideDetail.content }}</div>
+                </div>
+
+                <!-- 评论列表 -->
+                <div>
+                    <h4>评论列表：</h4>
+                    <el-table :data="comments" border>
+                        <el-table-column prop="userId" label="评论者ID" width="100"></el-table-column>
+                        <el-table-column prop="comment" label="评论内容"></el-table-column>
+                        <el-table-column prop="createdAt" label="评论时间" width="180">
+                            <template slot-scope="scope">
+                                {{ scope.row.createdAt | formatDate }}
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="status" label="状态" width="100">
+                            <template slot-scope="scope">
+                                <el-tag :type="scope.row.status === 'active' ? 'success' : 'danger'">
+                                    {{scope.row.status === 'active' ? '正常' : '已删除'}}
+                                </el-tag>
+                            </template>
+                        </el-table-column>
+                        <el-table-column label="操作" width="120">
+                            <template slot-scope="scope">
+                                <el-button 
+                                    size="mini" 
+                                    type="danger" 
+                                    v-if="scope.row.status === 'active'"
+                                    @click="updateCommentStatus(scope.row.commentId, 'deleted')">
+                                    删除
+                                </el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </div>
+            </div>
+        </el-dialog>
+    </div>
+
+    <!-- 引入Vue -->
+    <script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+    <!-- 引入ElementUI组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- 引入axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        Vue.filter('formatDate', function(value) {
+            if (!value || value === 'null' || value === '') return '';
+            const date = new Date(value);
+            if (isNaN(date.getTime())) return '';  // 处理无效日期
+            return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+        });
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    activeMenu: 'guide',
+                    guideStatus: 'draft',
+                    currentPage: 1,
+                    pageSize: 10,
+                    total: 0,
+                    guides: [],
+                    dialogVisible: false,
+                    guideDetail: null,
+                    comments: [],
+                    users: [],
+                    userCurrentPage: 1,
+                    userTotal: 0,
+                    statistics: {
+                        userCount: 0,
+                        guideCount: 0,
+                        commentCount: 0,
+                        viewCount: 0
+                    },
+                    loading: false,
+                    dialogLoading: false
+                }
+            },
+            created() {
+                this.loadGuides();
+            },
+            methods: {
+                handleSelect(key) {
+                    this.activeMenu = key;
+                    if (key === 'guide') {
+                        this.loadGuides();
+                    } else if (key === 'user') {
+                        this.loadUsers();
+                    } else if (key === 'statistics') {
+                        this.loadStatistics();
+                    }
+                },
+                loadGuides() {
+                    this.loading = true;
+                    axios.get('/lvshu/adminGuideListServlet', {
+                        params: {
+                            page: this.currentPage,
+                            pageSize: this.pageSize,
+                            status: this.guideStatus
+                        }
+                    }).then(response => {
+                        if (response.data.success) {
+                            this.guides = response.data.guides;
+                            this.total = response.data.total;
+                        }
+                    }).finally(() => {
+                        this.loading = false;
+                    });
+                },
+                handleCurrentChange(val) {
+                    this.currentPage = val;
+                    this.loadGuides();
+                },
+                viewGuide(row) {
+                    this.dialogVisible = true;
+                    this.dialogLoading = true;
+                    axios.get('/lvshu/adminGuideDetailServlet', {
+                        params: { guideId: row.guideId }
+                    }).then(response => {
+                        if (response.data.success) {
+                            this.guideDetail = response.data.guide;
+                            this.comments = response.data.comments;
+                        }
+                    }).finally(() => {
+                        this.dialogLoading = false;
+                    });
+                },
+                updateGuideStatus(guideId, status) {
+                    this.$confirm('确认要更改攻略状态吗？', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        axios.post('/lvshu/adminUpdateGuideStatusServlet', {
+                            guideId: guideId,
+                            status: status
+                        }, {
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(response => {
+                            if (response.data.success) {
+                                this.$message.success('状态更新成功');
+                                this.loadGuides();
+                            } else {
+                                this.$message.error(response.data.message || '状态更新失败');
+                            }
+                        });
+                    }).catch(() => {});
+                },
+                updateCommentStatus(commentId, status) {
+                    this.$confirm('确认要删除该评论吗？', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        axios.post('/lvshu/adminUpdateCommentStatusServlet', {
+                            commentId: commentId,
+                            status: status
+                        }, {
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(response => {
+                            if (response.data.success) {
+                                this.$message.success('评论状态更新成功');
+                                this.viewGuide(this.guideDetail);
+                            } else {
+                                this.$message.error(response.data.message || '评论状态更新失败');
+                            }
+                        });
+                    }).catch(() => {});
+                },
+                loadUsers() {
+                    this.loading = true;
+                    axios.get('/lvshu/adminUserListServlet', {
+                        params: {
+                            page: this.userCurrentPage,
+                            pageSize: this.pageSize
+                        }
+                    }).then(response => {
+                        if (response.data.success) {
+                            this.users = response.data.users;
+                            this.userTotal = response.data.total;
+                        }
+                    }).finally(() => {
+                        this.loading = false;
+                    });
+                },
+                handleUserCurrentChange(val) {
+                    this.userCurrentPage = val;
+                    this.loadUsers();
+                },
+                updateUserStatus(userId, status) {
+                    const action = status === 'banned' ? '封禁' : '解封';
+                    this.$confirm(`确认要${action}该用户吗？`, '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        // const formData = new FormData();
+                        // formData.append('userId', userId);
+                        // formData.append('status', status);
+                        //将参数拼接到url，不使用formdata
+                        let params = `?userId=${userId}&status=${status}`;
+
+                        axios.post('/lvshu/adminUpdateUserStatusServlet'+params, {})
+                            .then(response => {
+                                if (response.data.success) {
+                                    this.$message.success('用户状态更新成功');
+                                    this.loadUsers();
+                                } else {
+                                    this.$message.error(response.data.message || '用户状态更新失败');
+                                }
+                            });
+                    }).catch(() => {});
+                },
+                loadStatistics() {
+                    axios.get('/lvshu/adminStatisticsServlet')
+                        .then(response => {
+                            if (response.data.success) {
+                                this.statistics = response.data.data;
+                            }
+                        });
+                },
+                handleLogout() {
+                    this.$confirm('确认要退出登录吗？', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        axios.post('/lvshu/logoutServlet')
+                            .then(response => {
+                                if (response.data.success) {
+                                    this.$message.success('退出成功');
+                                    window.location.href = 'login.html';
+                                }
+                            });
+                    }).catch(() => {});
+                }
+            }
+        })
+    </script>
+</body>
+</html> 

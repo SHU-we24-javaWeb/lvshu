@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>管理员登录 - 小旅SHU后台管理系统</title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .video-wrap {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+        
+        .custom-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85);
+        }
+        
+        .custom-form {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            padding: 35px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            width: 400px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .hero-title {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .form-floating {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-control {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px !important;
+            height: 50px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .form-floating label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 12px !important;
+            color: rgba(255, 255, 255, 0.6);
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+        
+        .form-floating > .form-control:focus ~ label,
+        .form-floating > .form-control:not(:placeholder-shown) ~ label {
+            transform: translateY(-50%) scale(0.85);
+            top: 50%;
+            left: 10px;
+            padding: 0 5px !important;
+            color: rgba(255, 255, 255, 0.8);
+            background: transparent;
+        }
+        
+        .form-control::placeholder {
+            color: transparent;
+        }
+        
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.15) !important;
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+        
+        /* 自动填充时的背景色 */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus {
+            -webkit-text-fill-color: rgba(255, 255, 255, 0.9);
+            -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.1) inset;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+        
+        .form-check-label {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .btn {
+            background: rgba(64, 158, 255, 0.6);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: rgba(64, 158, 255, 0.8);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
+        }
+        
+        .form-check-input {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .form-check-input:checked {
+            background-color: rgba(64, 158, 255, 0.6);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 视频背景 -->
+    <div class="video-wrap">
+        <video autoplay loop muted class="custom-video">
+            <source src="../videos/video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div id="app">
+        <form class="custom-form" @submit.prevent="handleLogin">
+            <h2 class="hero-title">小旅SHU后台管理系统</h2>
+            
+            <div class="form-floating mb-4 p-0">
+                <input type="text" 
+                       v-model="loginForm.username" 
+                       class="form-control" 
+                       id="username" 
+                       placeholder="用户名" 
+                       required>
+                <label for="username">用户名</label>
+            </div>
+
+            <div class="form-floating p-0">
+                <input type="password" 
+                       v-model="loginForm.password" 
+                       class="form-control" 
+                       id="password" 
+                       placeholder="密码" 
+                       required>
+                <label for="password">密码</label>
+            </div>
+
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="rememberMe">
+                <label class="form-check-label" for="rememberMe">
+                    记住我
+                </label>
+            </div>
+
+            <button type="submit" 
+                    class="btn" 
+                    :disabled="loading">
+                {{ loading ? '登录中...' : '登录' }}
+            </button>
+        </form>
+    </div>
+
+    <!-- 保持原有的Vue和axios -->
+    <script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    loginForm: {
+                        username: '',
+                        password: ''
+                    },
+                    loading: false
+                }
+            },
+            methods: {
+                handleLogin() {
+                    // 使用原生表单验证
+                    if (!this.loginForm.username || !this.loginForm.password) {
+                        alert('请输入用户名和密码');
+                        return;
+                    }
+                    
+                    this.loading = true;
+                    
+                    // 发送登录请求
+                    axios.post('/lvshu/adminLoginServlet', {
+                        username: this.loginForm.username,
+                        password: this.loginForm.password
+                    }, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (response.data.success) {
+                            alert('登录成功');
+                            window.location.href = 'index.html';
+                        } else {
+                            alert(response.data.message || '登录失败');
+                        }
+                    })
+                    .catch(error => {
+                        alert('系统错误');
+                        console.error(error);
+                    })
+                    .finally(() => {
+                        this.loading = false;
+                    });
+                }
+            }
+        })
+    </script>
+</body>
+</html> 
