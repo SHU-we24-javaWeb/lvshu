@@ -491,9 +491,24 @@
                 }
             },
             created() {
+                // 检查用户是否已登录
+                this.checkLoginStatus();
                 this.loadGuides();
             },
             methods: {
+                checkLoginStatus() {
+                    axios.get('/lvshu/checkLoginServlet')  // 这里是检查用户登录状态的接口
+                        .then(response => {
+                            if (!response.data.loggedIn) {
+                                // 用户未登录，跳转到登录页面
+                                window.location.href = 'login.html';
+                            }
+                        })
+                        .catch(() => {
+                            // 网络错误或其他错误，跳转到登录页面
+                            window.location.href = 'login.html';
+                        });
+                },
                 handleSelect(key) {
                     this.activeMenu = key;
                     if (key === 'guide') {

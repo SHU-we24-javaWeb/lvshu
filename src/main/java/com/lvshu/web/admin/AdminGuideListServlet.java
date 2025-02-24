@@ -1,6 +1,7 @@
 package com.lvshu.web.admin;
 
 import com.lvshu.mapper.GuideMapper;
+import com.lvshu.pojo.Admin;
 import com.lvshu.pojo.Guide;
 import com.lvshu.util.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -11,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -23,6 +25,15 @@ public class AdminGuideListServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json;charset=utf-8");
         PrintWriter writer = resp.getWriter();
+
+        // 获取当前登录用户（从 session 中获取）
+        HttpSession session = req.getSession();
+        Admin admin = (Admin) session.getAttribute("admin"); // 获取 user
+        if (admin == null) {
+            // 如果用户没有登录（session 中没有 admin），可以重定向到登录页面
+            resp.sendRedirect("admin/login.html");
+            return;
+        }
 
         try {
             // 获取分页参数
