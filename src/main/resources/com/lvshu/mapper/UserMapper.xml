@@ -69,6 +69,10 @@
         SELECT * FROM user ORDER BY created_at DESC LIMIT #{offset}, #{pageSize}
     </select>
 
+    <select id="selectUserByUsernameAndPassword" resultType="com.lvshu.pojo.User" resultMap="UserResultMap">
+        select * from user where username = #{username} and password = #{password}
+    </select>
+
 
     <!--
        参数占位符：

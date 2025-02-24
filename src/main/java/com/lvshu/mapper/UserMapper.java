@@ -13,7 +13,6 @@ public interface UserMapper {
      * @param password
      * @return
      */
-    @Select("select * from user where username = #{username} and password = #{password}")
     User selectUserByUsernameAndPassword(@Param("username")String username, @Param("password") String password);
 
     /**

@@ -41,6 +41,7 @@ public class loginServlet extends HttpServlet {
         // 2.4 调用方法
         // 传入用户名和密码
         User user = userMapper.selectUserByUsernameAndPassword(username, password);
+        System.out.println(user);
         // 2.5 释放资源
         sqlSession.close();
 
@@ -49,7 +50,7 @@ public class loginServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         // 3.判断user是否为null
         if (user != null) {
-            if(user.getStatus() == "active")
+            if(user.getStatus() != "banned")
             {
                 // 登陆成功，跳转到主页或其他页面
                 writer.write("<html><body>");
