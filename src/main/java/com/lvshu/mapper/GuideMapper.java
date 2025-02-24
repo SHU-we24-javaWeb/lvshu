@@ -143,4 +143,10 @@ public interface GuideMapper {
          */
         @Select("SELECT SUM(view_count) FROM guide")
         int countAllViewCount();
+
+        /**
+         * 搜索热门攻略
+         * @return
+         */
+        List<Guide> selectHotGuide();
 }

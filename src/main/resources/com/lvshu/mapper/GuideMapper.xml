@@ -59,4 +59,8 @@
     <select id="selectByAuthorId" resultMap="guideResultMap">
         SELECT * FROM guide WHERE author_id = #{authorId}
     </select>
+
+    <select id="selectHotGuide" resultType="com.lvshu.pojo.Guide" resultMap="guideResultMap">
+        SELECT * FROM guide WHERE is_featured = TRUE;
+    </select>
 </mapper> 
