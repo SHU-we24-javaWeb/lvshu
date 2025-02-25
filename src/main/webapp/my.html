@@ -49,7 +49,7 @@
         .profile-section {
             margin-top: 100px;
             padding: 40px 0;
-            color: #ffffff;
+            color: #ffffff; /* 设置为白色字体 */
         }
 
         .profile-card {
@@ -78,12 +78,27 @@
         .profile-info h2 {
             margin: 0 0 10px 0;
             font-size: 24px;
+            color: #ffffff; /* 设置白色字体 */
+        }
+
+        .profile-info p {
+            color: #ffffff; /* 设置白色字体 */
         }
 
         .profile-stats {
             display: flex;
             gap: 30px;
         }
+
+        .profile-stats .stat-item .stat-value,
+        .profile-stats .stat-item .stat-label {
+            color: #ffffff; /* 设置白色字体 */
+        }
+
+        .profile-details p {
+            color: #ffffff; /* 设置白色字体 */
+        }
+
 
         .stat-item {
             text-align: center;
@@ -325,14 +340,22 @@
                                 <div class="stat-label">粉丝</div>
                             </div>
                         </div>
-                        <a href="edit-profile.html" class="edit-btn" data-toggle="modal"
-                            data-target="#editProfileModal">
+                        <br>
+                        <!-- 个人详细信息 -->
+                        <div class="profile-details">
+                            <p><strong>性别：</strong><span id="gender">没写性别</span></p>
+                            <p><strong>地区：</strong><span id="location">没写地区</span></p>
+                            <p><strong>电话：</strong><span id="phone">没写电话</span></p>
+                            <p><strong>邮箱：</strong><span id="email">没写邮箱</span></p>
+                            <p><strong>专业：</strong><span id="major">没写专业</span></p>
+                        </div>
+                        <a href="edit-profile.html" class="edit-btn" data-toggle="modal" data-target="#editProfileModal">
                             <i class="bi bi-pencil"></i> 编辑资料
                         </a>
                     </div>
                 </div>
-
             </div>
+
 
             <!-- 修改内容部分的布局 -->
             <div class="content-section mt-4">
@@ -521,6 +544,7 @@
             loadUserProfile();
         });
 
+        // 更新用户信息
         function loadUserProfile() {
             fetch('/lvshu/profileServlet')
                 .then(response => response.json())
