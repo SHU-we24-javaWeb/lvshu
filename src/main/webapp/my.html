@@ -344,8 +344,8 @@
                         <!-- 个人详细信息 -->
                         <div class="profile-details">
                             <p><strong>性别：</strong><span id="gender">没写性别</span></p>
-                            <p><strong>地区：</strong><span id="location">没写地区</span></p>
-                            <p><strong>电话：</strong><span id="phone">没写电话</span></p>
+                            <p><strong>地区：</strong><span id="nativePlace">没写地区</span></p>
+                            <p><strong>电话：</strong><span id="mobilePhone">没写电话</span></p>
                             <p><strong>邮箱：</strong><span id="email">没写邮箱</span></p>
                             <p><strong>专业：</strong><span id="major">没写专业</span></p>
                         </div>
@@ -555,6 +555,11 @@
                         document.getElementById('username').textContent = user.username;
                         document.getElementById('userAvatar').src = user.avatar || 'images/default-avatar.jpg';
                         document.getElementById('userSignature').textContent = user.signature || '这个人很懒，什么都没写~';
+                        document.getElementById('gender').textContent = user.gender == 'O' ? '沃尔玛购物袋' : (user.gender == 'F' ? '女' : '男');
+                        document.getElementById('email').textContent = user.email || '这个人很懒，什么都没写~';
+                        document.getElementById('mobilePhone').textContent = user.mobilePhone || '这个人很懒，什么都没写~';
+                        document.getElementById('major').textContent = user.major || '这个人很懒，什么都没写~';
+                        document.getElementById('nativePlace').textContent = user.nativePlace || '这个人很懒，什么都没写~';
 
                         // 更新统计数据
                         const stats = data.data.stats;
