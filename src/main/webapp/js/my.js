@@ -186,3 +186,59 @@ function logout() {
             alert('退出失败，请稍后重试');
         });
 }
+
+document.getElementById('followButton').addEventListener('click', function() {
+    loadUserList('following');
+});
+
+document.getElementById('favoriteButton').addEventListener('click', function() {
+    loadUserList('followers'); // 假设后端有一个类似的接口获取收藏列表
+});
+
+// 加载关注/收藏列表
+function loadUserList(type) {
+    fetch(`/lvshu/loadUserList?type=${type}`)  // 后端接口，type取'following' 或 'favorites'
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const userListContainer = document.getElementById('userList');
+                const modalTitle = document.getElementById('modalTitle');
+                userListContainer.innerHTML = '';
+
+                modalTitle.textContent = (type === 'following') ? '关注的人' : '粉丝列表';
+
+                data.users.forEach(user => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <div class="user-info">
+                            <img src="${user.avatar || 'images/default-avatar.jpg'}" alt="${user.username}'s avatar" class="user-avatar">
+                            <div class="user-details">
+                                <h3>${user.username}</h3>
+                                <p><strong>性别：</strong>${user.gender == 'O' ? '沃尔玛购物袋' : (user.gender == 'F' ? '女' : '男') || '未填写'}</p>
+                                <p><strong>地区：</strong>${user.nativePlace || '未填写'}</p>
+                                <p><strong>电话：</strong>${user.mobilePhone || '未填写'}</p>
+                                <p><strong>邮箱：</strong>${user.email || '未填写'}</p>
+                                <p><strong>专业：</strong>${user.major || '未填写'}</p>
+                            </div>
+                        </div>
+                    `;
+                    userListContainer.appendChild(li);
+                });
+
+                // 显示弹窗
+                document.getElementById('modal').style.display = 'flex';
+            } else {
+                alert('加载用户列表失败');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('加载用户列表失败，请稍后重试');
+        });
+}
+
+// 关闭弹窗
+document.getElementById('closeModal').addEventListener('click', function() {
+    document.getElementById('modal').style.display = 'none';
+});
+

@@ -76,9 +76,22 @@
                         <a href="edit-profile.html" class="edit-btn" data-toggle="modal" data-target="#editProfileModal">
                             <i class="bi bi-pencil"></i> 编辑资料
                         </a>
+                        <!-- 添加关注列表和收藏列表按钮 -->
+                        <button id="followButton" class="edit-btn">关注列表</button>
+                        <button id="favoriteButton" class="edit-btn">粉丝列表</button>
                     </div>
                 </div>
             </div>
+
+            <!-- 弹窗 -->
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <h3 id="modalTitle"></h3>
+                    <ul id="userList"></ul>
+                    <button id="closeModal">关闭</button>
+                </div>
+            </div>
+
 
 
             <!-- 修改内容部分的布局 -->
