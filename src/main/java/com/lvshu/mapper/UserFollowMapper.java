@@ -29,19 +29,11 @@ public interface UserFollowMapper {
     /**
      * 查询用户的关注列表
      */
-    @Select("SELECT u.* FROM user u " +
-            "INNER JOIN user_follows uf ON u.user_id = uf.followed_id " +
-            "WHERE uf.follower_id = #{userId} " +
-            "ORDER BY uf.created_at DESC")
     List<User> selectFollowings(Integer userId);
 
     /**
      * 查询用户的粉丝列表
      */
-    @Select("SELECT u.* FROM user u " +
-            "INNER JOIN user_follows uf ON u.user_id = uf.follower_id " +
-            "WHERE uf.followed_id = #{userId} " +
-            "ORDER BY uf.created_at DESC")
     List<User> selectFollowers(Integer userId);
 
     /**

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lvshu.mapper.UserFollowMapper">
+
+
+    <select id="selectFollowings" resultType="com.lvshu.pojo.User"
+            resultMap="com.lvshu.mapper.UserMapper.UserResultMap">
+        SELECT u.* FROM user u
+            INNER JOIN user_follows uf ON u.user_id = uf.followed_id
+            WHERE uf.follower_id = #{userId}
+            ORDER BY uf.created_at DESC
+    </select>
+
+    <select id="selectFollowers" resultType="com.lvshu.pojo.User"
+            resultMap="com.lvshu.mapper.UserMapper.UserResultMap">
+        SELECT u.* FROM user u
+            INNER JOIN user_follows uf ON u.user_id = uf.follower_id
+            WHERE uf.followed_id = #{userId}
+            ORDER BY uf.created_at DESC"
+    </select>
+</mapper>
