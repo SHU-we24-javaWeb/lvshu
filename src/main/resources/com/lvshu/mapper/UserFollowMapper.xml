@@ -18,6 +18,6 @@
         SELECT u.* FROM user u
             INNER JOIN user_follows uf ON u.user_id = uf.follower_id
             WHERE uf.followed_id = #{userId}
-            ORDER BY uf.created_at DESC"
+            ORDER BY uf.created_at DESC
     </select>
 </mapper>
