@@ -14,9 +14,17 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-icons.css" rel="stylesheet">
     <link href="css/tooplate-kool-form-pack.css" rel="stylesheet">
+    <link href="css/home.css" rel="stylesheet">
 </head>
 
 <body>
+
+<!-- 视频背景 -->
+<div class="video-wrap">
+    <video autoplay loop muted class="custom-video">
+        <source src="videos/video.mp4" type="video/mp4">
+    </video>
+</div>
 
 <main>
 
@@ -115,48 +123,50 @@
         </div>
     </div>
 
-    <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-12 mx-auto">
-                    <small>我们的网站正在建设中。
-                        <a rel="nofollow" target="_blank" href="https://www.pexels.com/zh-cn/video/2882116/">背景绿色视频由Kelly提供</a></small>
-                    <h1 class="text-white mt-2 mb-4 pb-2">
-                        敬请期待！
-                    </h1>
+    <br><br>
 
-                    <ul class="countdown d-flex flex-wrap align-items-center">
-                        <li class="countdown-item d-flex flex-column justify-content-center align-items-center">
-                            <h2 class="countdown-title days">14</h2>
-                            <span class="countdown-text">天</span>
-                        </li>
+<!--    <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">-->
 
-                        <li class="countdown-item d-flex flex-column justify-content-center align-items-center">
-                            <h2 class="countdown-title hours">10</h2>
-                            <span class="countdown-text">小时</span>
-                        </li>
+        <!-- 自动滚动展示栏 -->
+        <div id="customCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" id="carouselInner">
+                <!-- 动态内容将在这里添加 -->
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#customCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#customCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
 
-                        <li class="countdown-item d-flex flex-column justify-content-center align-items-center">
-                            <h2 class="countdown-title minutes">15</h2>
-                            <span class="countdown-text">分钟</span>
-                        </li>
-
-                        <li class="countdown-item d-flex flex-column justify-content-center align-items-center">
-                            <h2 class="countdown-title seconds">34</h2>
-                            <span class="countdown-text">秒</span>
-                        </li>
-                    </ul>
+        <!-- 内容部分 -->
+        <div class="content-section">
+            <div class="container">
+                <h2 class="section-title mb-4">推荐攻略</h2>
+                <div class="horizontal-scroll">
+                    <div class="row g-4" id="myGuides">
+                        <!-- 动态内容将在这里添加 -->
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="video-wrap">
-            <video autoplay="" loop="" muted="" class="custom-video" poster="">
-                <source src="videos/video.mp4" type="video/mp4">
-                您的浏览器不支持视频标签。
-            </video>
-        </div>
-    </section>
+<!--        <a rel="nofollow" target="_blank" href="https://www.pexels.com/zh-cn/video/2882116/">背景绿色视频由Kelly提供</a></small>-->
+<!--        <h1 class="text-white mt-2 mb-4 pb-2">-->
+<!--            敬请期待！-->
+<!--        </h1>-->
+
+
+<!--        <div class="video-wrap">-->
+<!--            <video autoplay="" loop="" muted="" class="custom-video" poster="">-->
+<!--                <source src="videos/video.mp4" type="video/mp4">-->
+<!--                您的浏览器不支持视频标签。-->
+<!--            </video>-->
+<!--        </div>-->
+<!--    </section>-->
 </main>
 
 <!-- JavaScript 文件 -->
@@ -164,6 +174,8 @@
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/countdown.js"></script>
 <script src="js/init.js"></script>
+<script src="js/carousel.js"></script> <!-- 引入动态填充的JavaScript文件 -->
+<script src="js/home.js"></script>
 
 </body>
 </html>
