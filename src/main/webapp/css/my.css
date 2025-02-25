@@ -294,13 +294,17 @@ footer {
     width: 80%;
     max-width: 600px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
+    overflow-y: auto;  /* 允许内容垂直滚动 */
+    max-height: 80vh;  /* 最大高度设置为视口高度的80% */
 }
 
+/* 用户列表样式 */
 #userList {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    max-height: 400px;  /* 设置用户列表的最大高度 */
+    overflow-y: auto;  /* 使列表可以滚动 */
 }
 
 #userList li {
