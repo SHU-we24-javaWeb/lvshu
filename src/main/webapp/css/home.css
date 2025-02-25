@@ -1,0 +1,502 @@
+.menu-buttons {
+    background-color: rgba(44, 44, 44, 0.9);
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.menu-btn {
+    padding: 12px 30px;
+    border-radius: 50px;
+    background-color: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.menu-btn:hover,
+.menu-btn.active {
+    background-color: #ffffff;
+    color: #000000;
+    text-decoration: none;
+}
+
+.content-section {
+    margin-top: 100px;
+    padding: 40px 0;
+}
+
+/* Carousel */
+#customCarousel {
+    width: 60%; /* 60% 宽度 */
+    max-width: 1000px; /* 最大宽度 */
+    margin: 90px auto; /* 居中 */
+    height: 400px; /* 固定高度 */
+    overflow: hidden; /* 防止内容溢出 */
+    position: relative;
+    border-radius: 50px;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* 平滑过渡 */
+}
+
+.carousel-item {
+    width: 100%; /* 每个项占满容器 */
+    flex-shrink: 0; /* 防止缩小 */
+    height: 400px; /* 固定高度 */
+}
+
+.carousel-item img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%; /* 高度也填满 */
+    border-radius: 50px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.carousel-control-prev {
+    left: 10px;
+}
+
+.carousel-control-next {
+    right: 10px;
+}
+
+.jumbotron h1 {
+    color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.jumbotron .lead {
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.thumbnail {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 20px;
+    padding: 20px;
+    color: #ffffff;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.thumbnail:hover {
+    transform: translateY(-10px);
+}
+
+.thumbnail img {
+    border-radius: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.thumbnail h3 {
+    color: #ffffff;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.thumbnail p {
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+.thumbnail .caption {
+    color: #ffffff;
+    margin-top: auto;
+}
+
+.btn-primary {
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    border-radius: 50px;
+    padding: 10px 25px;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+}
+
+.video-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.custom-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+footer {
+    background-color: rgba(44, 44, 44, 0.9);
+    color: #ffffff;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.profile-section {
+    margin-top: 100px;
+    padding: 40px 0;
+    color: #ffffff;
+}
+
+.profile-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    margin-bottom: 30px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+    object-fit: cover;
+    border: 3px solid #ffffff;
+}
+
+.profile-info h2 {
+    margin: 0 0 10px 0;
+    font-size: 24px;
+}
+
+.profile-stats {
+    display: flex;
+    gap: 30px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.stat-label {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.edit-btn {
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.edit-btn:hover {
+    background-color: #ffffff;
+    color: #000000;
+    text-decoration: none;
+}
+
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.collection-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.collection-card:hover {
+    transform: translateY(-5px);
+}
+
+.collection-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.collection-content {
+    padding: 20px;
+}
+
+.collection-content h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+}
+
+.collection-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    opacity: 0.8;
+    margin-top: 10px;
+}
+
+.tab-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+footer {
+    background-color: rgba(44, 44, 44, 0.9);
+    color: #ffffff;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.video-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.custom-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content-section {
+    margin-top: 30px;
+}
+
+.section-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 25px;
+    backdrop-filter: blur(10px);
+    height: 100%;
+}
+
+.collection-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+/* 自定义滚动条样式 */
+.collection-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.collection-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.collection-grid::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.collection-grid::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.collection-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.collection-card:hover {
+    transform: translateY(-5px);
+}
+
+.collection-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.collection-content {
+    padding: 15px;
+}
+
+.collection-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.section-title {
+    color: #fff !important;
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 2rem !important;
+}
+
+.section-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 80%;
+    background: #4CAF50;
+    border-radius: 4px;
+}
+
+/* 调整攻略卡片容器 */
+#myGuides {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+/* 卡片样式优化 */
+#myGuides .collection-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#myGuides .collection-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+#myGuides .collection-image {
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+#myGuides .collection-content {
+    padding: 1.5rem;
+    background: linear-gradient(to bottom,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.8) 100%);
+}
+
+#myGuides h3 {
+    color: #fff;
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    min-height: 3.5em;
+}
+
+#myGuides p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+    #myGuides {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    #myGuides {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+}

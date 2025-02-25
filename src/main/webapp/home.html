@@ -12,187 +12,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-icons.css" rel="stylesheet">
     <link href="css/tooplate-kool-form-pack.css" rel="stylesheet">
-    <style>
-        .menu-buttons {
-            background-color: rgba(44, 44, 44, 0.9);
-            padding: 10px 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        .menu-btn {
-            padding: 12px 30px;
-            border-radius: 50px;
-            background-color: transparent;
-            color: #ffffff;
-            border: 2px solid #ffffff;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .menu-btn:hover,
-        .menu-btn.active {
-            background-color: #ffffff;
-            color: #000000;
-            text-decoration: none;
-        }
-
-        .content-section {
-            margin-top: 100px;
-            padding: 40px 0;
-        }
-
-        /* Carousel */
-        #customCarousel {
-            width: 60%; /* 60% 宽度 */
-            max-width: 1000px; /* 最大宽度 */
-            margin: 90px auto; /* 居中 */
-            height: 400px; /* 固定高度 */
-            overflow: hidden; /* 防止内容溢出 */
-            position: relative;
-            border-radius: 50px;
-        }
-
-        .carousel-inner {
-            display: flex;
-            transition: transform 0.5s ease-in-out; /* 平滑过渡 */
-        }
-
-        .carousel-item {
-            width: 100%; /* 每个项占满容器 */
-            flex-shrink: 0; /* 防止缩小 */
-            height: 400px; /* 固定高度 */
-        }
-
-        .carousel-item img {
-            object-fit: cover;
-            width: 100%;
-            height: 100%; /* 高度也填满 */
-            border-radius: 50px;
-        }
-
-        .carousel-control-prev,
-        .carousel-control-next {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-radius: 100%;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 10;
-        }
-
-        .carousel-control-prev {
-            left: 10px;
-        }
-
-        .carousel-control-next {
-            right: 10px;
-        }
-
-        .jumbotron h1 {
-            color: #ffffff;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .jumbotron .lead {
-            color: #ffffff;
-            font-size: 18px;
-            line-height: 1.6;
-            opacity: 0.9;
-        }
-
-        .thumbnail {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 20px;
-            padding: 20px;
-            color: #ffffff;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-        }
-
-        .thumbnail:hover {
-            transform: translateY(-10px);
-        }
-
-        .thumbnail img {
-            border-radius: 15px;
-            margin-bottom: 20px;
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .thumbnail h3 {
-            color: #ffffff;
-            font-weight: bold;
-            margin: 15px 0;
-        }
-
-        .thumbnail p {
-            color: #ffffff;
-            font-size: 16px;
-            line-height: 1.5;
-            opacity: 0.9;
-        }
-
-        .thumbnail .caption {
-            color: #ffffff;
-            margin-top: auto;
-        }
-
-        .btn-primary {
-            background-color: transparent;
-            border: 2px solid #ffffff;
-            border-radius: 50px;
-            padding: 10px 25px;
-            color: #ffffff;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #ffffff;
-            color: #000000;
-            border-color: #ffffff;
-        }
-
-        .video-wrap {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .custom-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        footer {
-            background-color: rgba(44, 44, 44, 0.9);
-            color: #ffffff;
-            padding: 10px 0;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-        }
-    </style>
+    <link href="css/home.css" rel="stylesheet">
 </head>
 
 <body>
@@ -237,37 +57,10 @@
 <!-- 内容部分 -->
 <div class="content-section">
     <div class="container">
-        <h2 class="text-center text-white my-5">热门目的地攻略</h2>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="thumbnail">
-                    <img src="https://img.zcool.cn/community/031rqdfipqluron1tur9uls3935.png" alt="北京" class="img-fluid">
-                    <div class="caption">
-                        <h3>北京三日游完全攻略</h3>
-                        <p>走访故宫、长城、颐和园等经典景点，体验京城文化。深度游览建议与注意事项。</p>
-                        <p><a href="#" class="btn btn-primary">查看详情</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="thumbnail">
-                    <img src="https://th.bing.com/th/id/R.3cf01ec05f272a9e9dd166b76534fcac?rik=ugRSZ%2fSeMYjFmA&pid=ImgRaw&r=0" alt="上海" class="img-fluid">
-                    <div class="caption">
-                        <h3>魔都上海精选攻略</h3>
-                        <p>外滩夜景、迪士尼乐园、田子坊文艺之旅。包含交通建议和美食推荐。</p>
-                        <p><a href="#" class="btn btn-primary">查看详情</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="thumbnail">
-                    <img src="https://th.bing.com/th/id/R.b56aa4bb51cabc689de0e62b44e9ded1?rik=68%2bi6nBs8vAjaA&riu=http%3a%2f%2fseopic.699pic.com%2fphoto%2f50062%2f5802.jpg_wh1200.jpg&ehk=fapBxRe0u39jJ8t3P3G2Qobt2aqqpWZaTACd54Ycyzc%3d&risl=&pid=ImgRaw&r=0" alt="杭州" class="img-fluid">
-                    <div class="caption">
-                        <h3>杭州西湖游玩攻略</h3>
-                        <p>西湖十景、灵隐寺、宋城一日游推荐路线。季节性景点推荐和住宿建议。</p>
-                        <p><a href="#" class="btn btn-primary">查看详情</a></p>
-                    </div>
-                </div>
+        <h2 class="section-title mb-4">推荐攻略</h2>
+        <div class="horizontal-scroll">
+            <div class="row g-4" id="myGuides">
+                <!-- 动态内容将在这里添加 -->
             </div>
         </div>
     </div>
@@ -284,6 +77,64 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/carousel.js"></script> <!-- 引入动态填充的JavaScript文件 -->
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        loadUserProfile();
+    });
+
+    function loadUserProfile() {
+        fetch('/lvshu/hotGuideServlet')
+            .then(response => response.json())
+            .then(data => {
+                console.log('API Response:', data);
+                if (data.success) {
+
+                    // 更新我的攻略列表
+                    const myGuidesContainer = document.getElementById('myGuides');
+                    myGuidesContainer.innerHTML = data.guides.map(guide => `
+                            <div class="collection-card">
+                                <img src="${guide.coverImage || 'images/default-cover.jpg'}"
+                                     alt="${escapeHtml(guide.title)}"
+                                     class="collection-image">
+                                <div class="collection-content">
+                                    <h3>${escapeHtml(guide.title)}</h3>
+                                    <p>${escapeHtml(guide.content.substring(0, 100))}...</p>
+                                    <div class="collection-meta">
+                                        <span><i class="bi bi-eye"></i> ${guide.viewCount}</span>
+                                        <span><i class="bi bi-heart"></i> ${guide.favoriteCount}</span>
+                                        <div class="action-buttons">
+                                            <a href="guide-detail.html?id=${guide.guideId}"
+                                               class="edit-btn">
+                                                查看详情
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+
+
+                } else {
+                    alert('加载用户信息失败：' + (data.message || '未知错误'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('加载用户信息失败，请稍后重试');
+            });
+    }
+    // 辅助函数：HTML转义
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+</script>
 </body>
 
 </html>
