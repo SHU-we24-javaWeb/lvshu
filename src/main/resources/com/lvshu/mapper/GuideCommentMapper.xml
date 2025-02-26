@@ -15,7 +15,7 @@
     </resultMap>
 
     <select id="selectByGuideId" resultType="com.lvshu.pojo.GuideComment" resultMap="guideResultMap">
-        select * from guide_comments where guide_id = #{guideId};
+        select * from guide_comments where guide_id = #{guideId} and status = "active";
     </select>
 
 
