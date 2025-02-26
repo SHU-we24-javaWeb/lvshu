@@ -174,9 +174,9 @@ function logout() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // 成功退出，跳转到登录页面
+                // 成功退出，跳转到首页页面
                 alert('退出成功');
-                window.location.href = 'login.html';  // 假设登录页面是 login.html
+                window.location.href = 'index.html';
             } else {
                 alert('退出失败，请稍后重试');
             }
